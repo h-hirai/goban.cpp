@@ -1,9 +1,11 @@
 #include "goban.hpp"
+
+#define BOOST_TEST_MODULE GobanTest
 #include <boost/test/unit_test.hpp>
 
 using namespace boost::unit_test_framework;
 
-void point_test() {
+BOOST_AUTO_TEST_CASE(point_test) {
   Point p = Point(3, 4);
 
   BOOST_CHECK_EQUAL(p.row, 3);
@@ -27,7 +29,7 @@ void point_test() {
   BOOST_CHECK_EQUAL(pr.col, p.col + 1);
 }
 
-void board_test() {
+BOOST_AUTO_TEST_CASE(board_test) {
   Board b = Board(3);
 
   for (int row = 0; row < 3; row++) {
@@ -35,11 +37,4 @@ void board_test() {
       BOOST_CHECK_EQUAL(b.ref(Point(row, col)), empty);
     }
   }
-}
-
-test_suite* init_unit_test_suite(int argc, char* argv[]) {
-  test_suite* test = BOOST_TEST_SUITE("goban test");
-  test->add(BOOST_TEST_CASE(&point_test));
-  test->add(BOOST_TEST_CASE(&board_test));
-  return test;
 }
