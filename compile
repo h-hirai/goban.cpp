@@ -1,0 +1,7 @@
+#! /bin/bash
+
+g++ \
+    -I../boost_1_37_0 \
+    -L../boost_1_37_0/bin.v2/libs/test/build/gcc-4.1.2/release/link-static/threading-multi \
+    goban.cpp goban-test.cpp -lboost_unit_test_framework-gcc41-mt-1_37 \
+    -o goban-test
