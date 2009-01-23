@@ -37,4 +37,11 @@ BOOST_AUTO_TEST_CASE(board_test) {
       BOOST_CHECK_EQUAL(b.ref(Point(row, col)), empty);
     }
   }
+
+  b.set(Point(1, 1), black);
+  b.set(Point(1, 2), white);
+
+  BOOST_CHECK_EQUAL(b.ref(Point(1, 0)), empty);
+  BOOST_CHECK_EQUAL(b.ref(Point(1, 1)), black);
+  BOOST_CHECK_EQUAL(b.ref(Point(1, 2)), white);
 }
