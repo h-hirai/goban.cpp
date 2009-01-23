@@ -23,4 +23,5 @@ public:
   Board(int size);
   ~Board();
   color_t ref(const Point);
+  void set(const Point, color_t);
 };

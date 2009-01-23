@@ -39,3 +39,6 @@ color_t Board::ref(Point p) {
   return brd_state[p.row][p.col];
 }
 
+void Board::set(Point p, color_t c) {
+  brd_state[p.row][p.col] = c;
+}
