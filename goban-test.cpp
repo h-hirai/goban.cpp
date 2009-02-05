@@ -1,4 +1,4 @@
-#include "goban.hpp"
+#include "goban.h"
 
 #define BOOST_TEST_MODULE GobanTest
 #include <boost/test/unit_test.hpp>
