@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <set>
+#include <memory>
 
 using namespace std;
 
@@ -21,7 +22,7 @@ public:
   Point left() const;
   Point right() const;
 
-  set<Point> around() const;
+  auto_ptr<set<Point> > around() const;
 
   bool operator<(const Point&) const;
 };
