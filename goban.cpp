@@ -1,4 +1,4 @@
-#include "goban.hpp"
+#include "goban.h"
 
 Point::Point(const int row, const int col) : row(row), col(col) {}
 

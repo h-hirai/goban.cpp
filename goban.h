@@ -1,3 +1,5 @@
+// -*- c++ -*-
+
 enum color_t {
   empty,
   black,
