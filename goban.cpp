@@ -1,5 +1,8 @@
 #include "goban.h"
 
+//
+// class Point
+
 Point::Point(const int row, const int col) : row(row), col(col) {}
 
 Point Point::up() const {
@@ -22,14 +25,17 @@ bool Point::operator<(const Point p) const {
   return row < p.row || (row == p.row && col < p.col);
 }
 
-Board::Board(int size) :
+//
+// class Board
+
+Board::Board(const int size) :
   size(size),
   brd_state(vector<vector<color_t> >(size, vector<color_t>(size, empty))) {}
 
-color_t Board::ref(Point p) {
+color_t Board::ref(const Point p) const {
   return brd_state[p.row][p.col];
 }
 
-void Board::set(Point p, color_t c) {
+void Board::set(const Point p, const color_t c) {
   brd_state[p.row][p.col] = c;
 }
