@@ -27,6 +27,12 @@ BOOST_AUTO_TEST_CASE(point_test) {
 
   BOOST_CHECK_EQUAL(pr.row, p.row);
   BOOST_CHECK_EQUAL(pr.col, p.col + 1);
+
+  BOOST_CHECK(!(p < p));
+  BOOST_CHECK(pu < p);
+  BOOST_CHECK(p < pd);
+  BOOST_CHECK(pl < p);
+  BOOST_CHECK(p < pr);
 }
 
 BOOST_AUTO_TEST_CASE(board_test) {
