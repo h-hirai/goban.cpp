@@ -1,6 +1,7 @@
 // -*- c++ -*-
 
 #include <vector>
+#include <set>
 
 using namespace std;
 
@@ -14,10 +15,13 @@ class Point {
 public:
   int row, col;
   Point(const int, const int);
+
   Point up() const;
   Point down() const;
   Point left() const;
   Point right() const;
+
+  set<Point> around() const;
 
   bool operator<(const Point) const;
 };
