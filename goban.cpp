@@ -21,6 +21,16 @@ Point Point::right() const {
   return Point(row, col + 1);
 }
 
+set<Point> Point::around() const {
+  set<Point> ps;
+  ps.insert(up());
+  ps.insert(down());
+  ps.insert(left());
+  ps.insert(right());
+
+  return ps;
+}
+
 bool Point::operator<(const Point p) const {
   return row < p.row || (row == p.row && col < p.col);
 }
