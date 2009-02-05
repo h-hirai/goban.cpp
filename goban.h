@@ -1,5 +1,9 @@
 // -*- c++ -*-
 
+#include <vector>
+
+using namespace std;
+
 enum color_t {
   empty,
   black,
@@ -21,11 +25,10 @@ public:
 class Board {
 private:
   int size;
-  color_t** brd_state;
+  vector<vector<color_t> > brd_state;
 
 public:
   Board(int size);
-  ~Board();
   color_t ref(const Point);
   void set(const Point, color_t);
 };
