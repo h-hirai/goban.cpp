@@ -7,11 +7,13 @@ enum color_t {
 class Point {
 public:
   int row, col;
-  Point(int, int);
-  Point up();
-  Point down();
-  Point left();
-  Point right();
+  Point(const int, const int);
+  Point up() const;
+  Point down() const;
+  Point left() const;
+  Point right() const;
+
+  bool operator<(const Point) const;
 };
 
 class Board {

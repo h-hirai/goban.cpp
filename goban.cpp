@@ -1,21 +1,25 @@
 #include "goban.hpp"
 
-Point::Point(int row, int col) : row(row), col(col) {}
+Point::Point(const int row, const int col) : row(row), col(col) {}
 
-Point Point::up() {
+Point Point::up() const {
   return Point(row - 1, col);
 }
 
-Point Point::down() {
+Point Point::down() const {
   return Point(row + 1, col);
 }
 
-Point Point::left() {
+Point Point::left() const {
   return Point(row, col - 1);
 }
 
-Point Point::right() {
+Point Point::right() const {
   return Point(row, col + 1);
+}
+
+bool Point::operator<(const Point p) const {
+  return row < p.row || (row == p.row && col < p.col);
 }
 
 Board::Board(int size) : size(size) {
