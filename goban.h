@@ -28,7 +28,7 @@ private:
   vector<vector<color_t> > brd_state;
 
 public:
-  Board(int size);
-  color_t ref(const Point);
-  void set(const Point, color_t);
+  Board(const int size);
+  color_t ref(const Point) const;
+  void set(const Point, const color_t);
 };
