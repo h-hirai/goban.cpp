@@ -23,7 +23,7 @@ public:
 
   set<Point> around() const;
 
-  bool operator<(const Point) const;
+  bool operator<(const Point&) const;
 };
 
 class Board {
