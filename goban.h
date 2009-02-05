@@ -33,6 +33,6 @@ private:
 
 public:
   Board(const int size);
-  color_t ref(const Point) const;
-  void set(const Point, const color_t);
+  color_t ref(const Point&) const;
+  void set(const Point&, const color_t);
 };
