@@ -21,8 +21,8 @@ Point Point::right() const {
   return Point(row, col + 1);
 }
 
-auto_ptr<set<Point> > Point::around() const {
-  auto_ptr<set<Point> > ps(new set<Point>);
+Points Point::around() const {
+  Points ps(new set<Point>);
   ps->insert(up());
   ps->insert(down());
   ps->insert(left());

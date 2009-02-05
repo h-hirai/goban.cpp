@@ -12,6 +12,9 @@ enum color_t {
   white
 };
 
+class Point;
+typedef auto_ptr<set<Point> > Points;
+
 class Point {
 public:
   int row, col;
@@ -22,7 +25,7 @@ public:
   Point left() const;
   Point right() const;
 
-  auto_ptr<set<Point> > around() const;
+  Points around() const;
 
   bool operator<(const Point&) const;
 };

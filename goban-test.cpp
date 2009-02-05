@@ -28,7 +28,7 @@ BOOST_AUTO_TEST_CASE(point_test) {
   BOOST_CHECK_EQUAL(pr.row, p.row);
   BOOST_CHECK_EQUAL(pr.col, p.col + 1);
 
-  auto_ptr<set<Point> > ps = p.around();
+  Points ps = p.around();
   BOOST_CHECK(ps->size() == 4);
   BOOST_CHECK(ps->find(pu) != ps->end());
   BOOST_CHECK(ps->find(pd) != ps->end());
