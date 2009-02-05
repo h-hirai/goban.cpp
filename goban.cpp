@@ -31,7 +31,7 @@ set<Point> Point::around() const {
   return ps;
 }
 
-bool Point::operator<(const Point p) const {
+bool Point::operator<(const Point& p) const {
   return row < p.row || (row == p.row && col < p.col);
 }
 
