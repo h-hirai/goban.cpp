@@ -3,6 +3,7 @@
 #include <vector>
 #include <set>
 #include <memory>
+#include <numeric>
 
 using namespace std;
 
@@ -28,15 +29,28 @@ public:
   Points around() const;
 
   bool operator<(const Point&) const;
+  bool out_of_board(const int) const;
 };
 
 class Board {
+public:
+  const int size;
 private:
-  int size;
   vector<vector<color_t> > brd_state;
+  class get_chain_aux {
+  private:
+    const Board* board;
+    const color_t chain_color;
+  public:
+    get_chain_aux(const Board*, const color_t);
+    Points operator()(Points, const Point&) const;
+  };
 
 public:
   Board(const int size);
+
   color_t ref(const Point&) const;
   void set(const Point&, const color_t);
+
+  Points get_chain(const Point&) const;
 };

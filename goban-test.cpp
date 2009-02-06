@@ -58,3 +58,46 @@ BOOST_AUTO_TEST_CASE(board_test) {
   BOOST_CHECK_EQUAL(b.ref(Point(1, 1)), black);
   BOOST_CHECK_EQUAL(b.ref(Point(1, 2)), white);
 }
+
+BOOST_AUTO_TEST_CASE(board_test_get_chain) {
+  Board b = Board(5);
+
+  b.set(Point(1, 1), white);
+  b.set(Point(1, 2), white);
+  b.set(Point(1, 3), white);
+  b.set(Point(2, 1), white);
+  b.set(Point(2, 2), black);
+  b.set(Point(2, 3), white);
+  b.set(Point(3, 1), black);
+  b.set(Point(3, 3), black);
+  b.set(Point(4, 1), black);
+  b.set(Point(4, 2), black);
+  b.set(Point(4, 3), black);
+
+  Points ps;
+  ps = b.get_chain(Point(2, 2));
+  BOOST_CHECK(ps->size() == 1);
+  BOOST_CHECK(ps->find(Point(2, 2)) != ps->end());
+
+  ps = b.get_chain(Point(1, 1));
+  BOOST_CHECK(ps->size() == 5);
+  BOOST_CHECK(ps->find(Point(1, 1)) != ps->end());
+  BOOST_CHECK(ps->find(Point(1, 2)) != ps->end());
+  BOOST_CHECK(ps->find(Point(1, 3)) != ps->end());
+  BOOST_CHECK(ps->find(Point(2, 1)) != ps->end());
+  BOOST_CHECK(ps->find(Point(2, 3)) != ps->end());
+
+  ps = b.get_chain(Point(3, 2));
+  BOOST_CHECK(ps->size() == 0);
+
+  ps = b.get_chain(Point(3, 3));
+  BOOST_CHECK(ps->size() == 5);
+  BOOST_CHECK(ps->find(Point(3, 1)) != ps->end());
+  BOOST_CHECK(ps->find(Point(3, 3)) != ps->end());
+  BOOST_CHECK(ps->find(Point(4, 1)) != ps->end());
+  BOOST_CHECK(ps->find(Point(4, 2)) != ps->end());
+  BOOST_CHECK(ps->find(Point(4, 3)) != ps->end());
+
+  ps = b.get_chain(Point(5, 3));
+  BOOST_CHECK(ps->size() == 0);
+}
