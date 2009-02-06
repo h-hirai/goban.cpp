@@ -39,10 +39,10 @@ private:
   vector<vector<color_t> > brd_state;
   class get_chain_aux {
   private:
-    const Board* board;
+    const Board& board;
     const color_t chain_color;
   public:
-    get_chain_aux(const Board*, const color_t);
+    get_chain_aux(const Board&, const color_t);
     Points operator()(Points, const Point&) const;
   };
 
