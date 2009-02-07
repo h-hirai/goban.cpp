@@ -46,25 +46,29 @@ Board::Board(const int size) :
   size(size),
   brd_state(vector<vector<color_t> >(size, vector<color_t>(size, empty))) {}
 
-color_t Board::ref(const Point& p) const {
+vector<color_t>& Board::operator[](const int y) {
+  return brd_state[y];
+}
+
+color_t& Board::operator[](const Point& p) {
   return brd_state[p.y][p.x];
 }
 
-void Board::set(const Point& p, const color_t c) {
-  brd_state[p.y][p.x] = c;
+color_t Board::operator[](const Point& p) const {
+  return brd_state[p.y][p.x];
 }
 
 Points Board::get_chain(const Point& p) const {
-  Points ps(new std::set<Point>);
+  Points ps(new set<Point>);
 
   if (p.out_of_board(size)) {
     return ps;
   }
-  else if (ref(p) == empty) {
+  else if (brd_state[p.y][p.x] == empty) {
     return ps;
   }
   else {
-    get_chain_aux get_points_of_chain(*this, ref(p));
+    get_chain_aux get_points_of_chain(*this, brd_state[p.y][p.x]);
     return get_points_of_chain(ps, p);
   }
 }
@@ -78,7 +82,7 @@ Points Board::get_chain_aux::operator()(Points ps, const Point& p) const {
   if (p.out_of_board(board.size)) {
     return ps;
   }
-  else if (board.ref(p) != chain_color) {
+  else if (board[p] != chain_color) {
     return ps;
   }
   else if (ps->find(p) != ps->end()) {

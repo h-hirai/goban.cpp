@@ -49,8 +49,9 @@ private:
 public:
   Board(const int size);
 
-  color_t ref(const Point&) const;
-  void set(const Point&, const color_t);
+  vector<color_t>& operator[](const int);
+  color_t& operator[](const Point&);
+  color_t operator[](const Point&) const;
 
   Points get_chain(const Point&) const;
 };
