@@ -8,25 +8,25 @@ using namespace boost::unit_test_framework;
 BOOST_AUTO_TEST_CASE(point_test) {
   Point p = Point(3, 4);
 
-  BOOST_CHECK_EQUAL(p.row, 3);
-  BOOST_CHECK_EQUAL(p.col, 4);
+  BOOST_CHECK_EQUAL(p.x, 3);
+  BOOST_CHECK_EQUAL(p.y, 4);
 
   Point pu = p.up();
   Point pd = p.down();
   Point pl = p.left();
   Point pr = p.right();
 
-  BOOST_CHECK_EQUAL(pu.row, p.row - 1);
-  BOOST_CHECK_EQUAL(pu.col, p.col);
+  BOOST_CHECK_EQUAL(pu.x, p.x);
+  BOOST_CHECK_EQUAL(pu.y, p.y - 1);
 
-  BOOST_CHECK_EQUAL(pd.row, p.row + 1);
-  BOOST_CHECK_EQUAL(pd.col, p.col);
+  BOOST_CHECK_EQUAL(pd.x, p.x);
+  BOOST_CHECK_EQUAL(pd.y, p.y + 1);
 
-  BOOST_CHECK_EQUAL(pl.row, p.row);
-  BOOST_CHECK_EQUAL(pl.col, p.col - 1);
+  BOOST_CHECK_EQUAL(pl.x, p.x - 1);
+  BOOST_CHECK_EQUAL(pl.y, p.y);
 
-  BOOST_CHECK_EQUAL(pr.row, p.row);
-  BOOST_CHECK_EQUAL(pr.col, p.col + 1);
+  BOOST_CHECK_EQUAL(pr.x, p.x + 1);
+  BOOST_CHECK_EQUAL(pr.y, p.y);
 
   Points ps = p.around();
   BOOST_CHECK(ps->size() == 4);

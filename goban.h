@@ -18,7 +18,7 @@ typedef auto_ptr<set<Point> > Points;
 
 class Point {
 public:
-  const int row, col;
+  const int x, y;
   Point(const int, const int);
 
   Point up() const;
