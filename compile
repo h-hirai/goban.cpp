@@ -4,13 +4,9 @@
 include_path=../boost_1_37_0
 library_path=../boost_1_37_0/bin.v2/libs/test/build/gcc-4.1.2/release/link-static/threading-multi
 #library_path=../boost_1_37_0/bin.v2/libs/test/build/darwin-4.0.1/release/link-static/threading-multi
-# boost_unit_test_framework=boost_unit_test_framework-gcc40-mt-1_37
 boost_unit_test_framework=boost_unit_test_framework-gcc41-mt-1_37
+#boost_unit_test_framework=boost_unit_test_framework-xgcc40-mt-1_37
 
-g++ \
-    -Wall \
-    -I$include_path \
-    -L$library_path \
-    goban.cpp goban-test.cpp \
-    -l$boost_unit_test_framework \
+g++ -Wall -I$include_path -L$library_path \
+    goban.cpp goban-test.cpp -l$boost_unit_test_framework \
     -o goban-test
