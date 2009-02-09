@@ -5,21 +5,10 @@
 
 Point::Point(const int x, const int y) : x(x), y(y) {}
 
-Point Point::up() const {
-  return Point(x, y - 1);
-}
-
-Point Point::down() const {
-  return Point(x, y + 1);
-}
-
-Point Point::left() const {
-  return Point(x - 1, y);
-}
-
-Point Point::right() const {
-  return Point(x + 1, y);
-}
+Point Point::up() const    {return Point(x,     y - 1);}
+Point Point::down() const  {return Point(x,     y + 1);}
+Point Point::left() const  {return Point(x - 1, y);}
+Point Point::right() const {return Point(x + 1, y);}
 
 Points Point::around() const {
   Points ps(new set<Point>);
@@ -46,17 +35,9 @@ Board::Board(const int size) :
   size(size),
   brd_state(vector<vector<color_t> >(size, vector<color_t>(size, empty))) {}
 
-vector<color_t>& Board::operator[](const int y) {
-  return brd_state[y];
-}
-
-color_t& Board::operator[](const Point& p) {
-  return brd_state[p.y][p.x];
-}
-
-color_t Board::operator[](const Point& p) const {
-  return brd_state[p.y][p.x];
-}
+vector<color_t>& Board::operator[](const int y) {return brd_state[y];}
+color_t& Board::operator[](const Point& p)      {return brd_state[p.y][p.x];}
+color_t Board::operator[](const Point& p) const {return brd_state[p.y][p.x];}
 
 Points Board::get_chain(const Point& p) const {
   Points ps(new set<Point>);
