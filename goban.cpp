@@ -75,3 +75,7 @@ Points Board::get_chain_aux::operator()(Points ps, const Point& p) const {
     return accumulate(aps->begin(), aps->end(), ps, *this);
   }
 }
+
+bool Board::alive_at(const Point& p) const {
+  throw "not implemented yet";
+}

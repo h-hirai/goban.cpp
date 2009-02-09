@@ -54,4 +54,5 @@ public:
   color_t operator[](const Point&) const;
 
   Points get_chain(const Point&) const;
+  bool alive_at(const Point&) const;
 };
