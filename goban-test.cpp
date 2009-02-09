@@ -6,10 +6,14 @@
 using namespace boost::unit_test_framework;
 
 BOOST_AUTO_TEST_CASE(point_test) {
+  BOOST_TEST_CHECKPOINT("reference x, y");
+
   Point p = Point(3, 4);
 
   BOOST_CHECK_EQUAL(p.x, 3);
   BOOST_CHECK_EQUAL(p.y, 4);
+
+  BOOST_TEST_CHECKPOINT("up, down, left, right");
 
   Point pu = p.up();
   Point pd = p.down();
@@ -28,12 +32,16 @@ BOOST_AUTO_TEST_CASE(point_test) {
   BOOST_CHECK_EQUAL(pr.x, p.x + 1);
   BOOST_CHECK_EQUAL(pr.y, p.y);
 
+  BOOST_TEST_CHECKPOINT("around");
+
   Points ps = p.around();
   BOOST_CHECK(ps->size() == 4);
   BOOST_CHECK(ps->find(pu) != ps->end());
   BOOST_CHECK(ps->find(pd) != ps->end());
   BOOST_CHECK(ps->find(pl) != ps->end());
   BOOST_CHECK(ps->find(pr) != ps->end());
+
+  BOOST_TEST_CHECKPOINT("operator<");
 
   BOOST_CHECK(!(p < p));
   BOOST_CHECK(pu < p);
@@ -43,6 +51,8 @@ BOOST_AUTO_TEST_CASE(point_test) {
 }
 
 BOOST_AUTO_TEST_CASE(board_test) {
+  BOOST_TEST_CHECKPOINT("initialization");
+
   Board b = Board(3);
 
   for (int y = 0; y < 3; y++) {
@@ -50,6 +60,8 @@ BOOST_AUTO_TEST_CASE(board_test) {
       BOOST_CHECK_EQUAL(b[Point(x, y)], empty);
     }
   }
+
+  BOOST_TEST_CHECKPOINT("setting and reference");
 
   b[Point(1, 1)] = black;
   b[Point(1, 2)] = white;
@@ -75,9 +87,14 @@ BOOST_AUTO_TEST_CASE(board_test_get_chain) {
   b[Point(4, 3)] = black;
 
   Points ps;
+
+  BOOST_TEST_CHECKPOINT("alone stone");
+
   ps = b.get_chain(Point(2, 2));
   BOOST_CHECK(ps->size() == 1);
   BOOST_CHECK(ps->find(Point(2, 2)) != ps->end());
+
+  BOOST_TEST_CHECKPOINT("many stones");
 
   ps = b.get_chain(Point(1, 1));
   BOOST_CHECK(ps->size() == 5);
@@ -87,8 +104,12 @@ BOOST_AUTO_TEST_CASE(board_test_get_chain) {
   BOOST_CHECK(ps->find(Point(2, 1)) != ps->end());
   BOOST_CHECK(ps->find(Point(2, 3)) != ps->end());
 
+  BOOST_TEST_CHECKPOINT("no stones");
+
   ps = b.get_chain(Point(3, 2));
   BOOST_CHECK(ps->size() == 0);
+
+  BOOST_TEST_CHECKPOINT("many stones on an edge");
 
   ps = b.get_chain(Point(3, 3));
   BOOST_CHECK(ps->size() == 5);
@@ -97,6 +118,8 @@ BOOST_AUTO_TEST_CASE(board_test_get_chain) {
   BOOST_CHECK(ps->find(Point(4, 1)) != ps->end());
   BOOST_CHECK(ps->find(Point(4, 2)) != ps->end());
   BOOST_CHECK(ps->find(Point(4, 3)) != ps->end());
+
+  BOOST_TEST_CHECKPOINT("out of the board");
 
   ps = b.get_chain(Point(5, 3));
   BOOST_CHECK(ps->size() == 0);
