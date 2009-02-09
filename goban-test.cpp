@@ -124,3 +124,61 @@ BOOST_AUTO_TEST_CASE(board_test_get_chain) {
   ps = b.get_chain(Point(5, 3));
   BOOST_CHECK(ps->size() == 0);
 }
+
+BOOST_AUTO_TEST_CASE(board_test_alive_at) {
+  BOOST_TEST_CHECKPOINT("preparing test data...");
+
+  Board b1 = Board(5);
+  Board b2 = Board(5);
+  Board b3 = Board(5);
+
+  b1[0][1] = black;
+  b1[0][3] = black;
+  b1[1][2] = black;
+  b1[2][2] = black;
+  b1[3][2] = black;
+  b1[4][1] = black;
+  b1[4][3] = black;
+  b1[0][2] = white;
+  b1[1][1] = white;
+  b1[1][3] = white;
+  b1[2][1] = white;
+  b1[2][3] = white;
+  b1[3][1] = white;
+  b1[3][3] = white;
+  b1[4][2] = white;
+
+  b2[0][1] = black;
+  b2[0][3] = black;
+  b2[1][1] = black;
+  b2[1][3] = black;
+  b2[2][1] = black;
+  b2[2][3] = black;
+  b2[3][2] = black;
+  b2[0][2] = white;
+  b2[1][2] = white;
+  b2[2][2] = white;
+  b2[3][1] = white;
+  b2[3][3] = white;
+
+  b3[0][4] = black;
+  b3[1][4] = black;
+  b3[2][2] = black;
+  b3[3][2] = black;
+  b3[4][2] = black;
+  b3[0][3] = white;
+  b3[2][4] = white;
+  b3[3][4] = white;
+  b3[4][4] = white;
+
+  BOOST_TEST_CHECKPOINT("preparing test data done");
+
+  BOOST_CHECK( b1.alive_at(Point(1, 2)));
+  BOOST_CHECK(!b1.alive_at(Point(2, 2)));
+  BOOST_CHECK( b2.alive_at(Point(1, 2)));
+  BOOST_CHECK(!b2.alive_at(Point(2, 2)));
+  BOOST_CHECK( b3.alive_at(Point(4, 0)));
+  BOOST_CHECK(!b3.alive_at(Point(4, 4)));
+  BOOST_CHECK(!b3.alive_at(Point(0, 4)));
+  BOOST_CHECK(!b3.alive_at(Point(5, 5)));
+}
