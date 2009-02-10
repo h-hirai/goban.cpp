@@ -163,9 +163,9 @@ BOOST_AUTO_TEST_CASE(board_test_alive_at) {
 
   b3[0][4] = black;
   b3[1][4] = black;
-  b3[2][2] = black;
-  b3[3][2] = black;
-  b3[4][2] = black;
+  b3[2][3] = black;
+  b3[3][3] = black;
+  b3[4][3] = black;
   b3[0][3] = white;
   b3[2][4] = white;
   b3[3][4] = white;

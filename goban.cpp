@@ -75,5 +75,12 @@ Points Board::get_chain_aux::operator()(Points ps, const Point& p) const {
 }
 
 bool Board::alive_at(const Point& p) const {
-  throw "not implemented yet";
+  Points ps = get_chain(p);
+  for (set<Point>::iterator i = ps->begin(); i != ps->end(); i++) {
+    Points aps = i->around();
+    for(set<Point>::iterator j = aps->begin() ; j != aps->end(); j++) {
+      if (operator[](*j) == empty) return true;
+    }
+  }
+  return false;
 }
