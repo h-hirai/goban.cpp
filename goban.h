@@ -54,4 +54,5 @@ public:
 
   Points get_chain(const Point&) const;
   bool alive_at(const Point&) const;
+  int put(const Point&, color_t);
 };
