@@ -10,7 +10,8 @@ using namespace std;
 enum color_t {
   empty,
   black,
-  white
+  white,
+  out_of_board
 };
 
 class Point;
@@ -29,13 +30,11 @@ public:
   Points around() const;
 
   bool operator<(const Point&) const;
-  bool out_of_board(const int) const;
 };
 
 class Board {
-public:
-  const int size;
 private:
+  const int size;
   vector<vector<color_t> > brd_state;
   class get_chain_aux {
   private:
