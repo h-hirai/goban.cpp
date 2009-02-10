@@ -78,7 +78,7 @@ bool Board::alive_at(const Point& p) const {
   Points ps = get_chain(p);
   for (set<Point>::iterator i = ps->begin(); i != ps->end(); i++) {
     Points aps = i->around();
-    for(set<Point>::iterator j = aps->begin() ; j != aps->end(); j++) {
+    for(set<Point>::iterator j = aps->begin(); j != aps->end(); j++) {
       if ((*this)[*j] == empty) return true;
     }
   }
