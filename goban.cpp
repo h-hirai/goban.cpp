@@ -24,10 +24,6 @@ bool Point::operator<(const Point& p) const {
   return y < p.y || (y == p.y && x < p.x);
 }
 
-bool Point::out_of_board(const int size) const {
-  return x < 0 || y < 0 || x >= size || y >= size;
-}
-
 //
 // class Board
 
@@ -37,19 +33,24 @@ Board::Board(const int size) :
 
 vector<color_t>& Board::operator[](const int y) {return brd_state[y];}
 color_t& Board::operator[](const Point& p)      {return brd_state[p.y][p.x];}
-color_t Board::operator[](const Point& p) const {return brd_state[p.y][p.x];}
+color_t Board::operator[](const Point& p) const {
+  if (p.x < 0 || p.y < 0 || p.x >= size || p.y >= size) {
+    return out_of_board;
+  }
+  else {
+    return brd_state[p.y][p.x];
+  }
+}
 
 Points Board::get_chain(const Point& p) const {
   Points ps(new set<Point>);
+  color_t c = operator[](p);
 
-  if (p.out_of_board(size)) {
-    return ps;
-  }
-  else if (brd_state[p.y][p.x] == empty) {
+  if (c == out_of_board || c == empty) {
     return ps;
   }
   else {
-    get_chain_aux get_points_of_chain(*this, brd_state[p.y][p.x]);
+    get_chain_aux get_points_of_chain(*this, c);
     return get_points_of_chain(ps, p);
   }
 }
@@ -60,10 +61,7 @@ Board::get_chain_aux::get_chain_aux(const Board& board,
   chain_color(chain_color) {}
 
 Points Board::get_chain_aux::operator()(Points ps, const Point& p) const {
-  if (p.out_of_board(board.size)) {
-    return ps;
-  }
-  else if (board[p] != chain_color) {
+  if (board[p] != chain_color) {
     return ps;
   }
   else if (ps->find(p) != ps->end()) {
