@@ -86,5 +86,6 @@ bool Board::alive_at(const Point& p) const {
 }
 
 int Board::put(const Point& p, color_t c) {
-  throw "not implemented yet";
+  (*this)[p] = c;
+  return 0;
 }
