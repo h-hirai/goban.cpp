@@ -182,3 +182,21 @@ BOOST_AUTO_TEST_CASE(board_test_alive_at) {
   BOOST_CHECK(!b3.alive_at(Point(0, 4)));
   BOOST_CHECK(!b3.alive_at(Point(5, 5)));
 }
+
+BOOST_AUTO_TEST_CASE(board_test_put_1) {
+  Board b(5);
+  int num_captured = b.put(Point(1, 3), black);
+  BOOST_CHECK_EQUAL(num_captured, 0);
+  for (int y = 0; y < 5; y++) {
+    for (int x = 0; x < 5; x++) {
+      color_t expect;
+      if (x == 1 && y == 3) {
+        expect = black;
+      }
+      else {
+        expect = empty;
+      }
+      BOOST_CHECK_EQUAL(b[y][x], expect);
+    }
+  }
+}

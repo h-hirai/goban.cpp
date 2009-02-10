@@ -84,3 +84,7 @@ bool Board::alive_at(const Point& p) const {
   }
   return false;
 }
+
+int Board::put(const Point& p, color_t c) {
+  throw "not implemented yet";
+}
