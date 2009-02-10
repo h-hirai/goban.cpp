@@ -8,7 +8,7 @@ using namespace boost::unit_test_framework;
 BOOST_AUTO_TEST_CASE(point_test) {
   BOOST_TEST_CHECKPOINT("reference x, y");
 
-  Point p = Point(3, 4);
+  Point p(3, 4);
 
   BOOST_CHECK_EQUAL(p.x, 3);
   BOOST_CHECK_EQUAL(p.y, 4);
@@ -53,7 +53,7 @@ BOOST_AUTO_TEST_CASE(point_test) {
 BOOST_AUTO_TEST_CASE(board_test) {
   BOOST_TEST_CHECKPOINT("initialization");
 
-  Board b = Board(3);
+  Board b(3);
 
   for (int y = 0; y < 3; y++) {
     for (int x = 0; x < 3; x++) {
@@ -72,7 +72,7 @@ BOOST_AUTO_TEST_CASE(board_test) {
 }
 
 BOOST_AUTO_TEST_CASE(board_test_get_chain) {
-  Board b = Board(5);
+  Board b(5);
 
   b[Point(1, 1)] = white;
   b[Point(1, 2)] = white;
@@ -128,9 +128,9 @@ BOOST_AUTO_TEST_CASE(board_test_get_chain) {
 BOOST_AUTO_TEST_CASE(board_test_alive_at) {
   BOOST_TEST_CHECKPOINT("preparing test data...");
 
-  Board b1 = Board(5);
-  Board b2 = Board(5);
-  Board b3 = Board(5);
+  Board b1(5);
+  Board b2(5);
+  Board b3(5);
 
   b1[0][1] = black;
   b1[0][3] = black;
