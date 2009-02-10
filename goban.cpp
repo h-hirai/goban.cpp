@@ -44,7 +44,7 @@ color_t Board::operator[](const Point& p) const {
 
 Points Board::get_chain(const Point& p) const {
   Points ps(new set<Point>);
-  color_t c = operator[](p);
+  color_t c = (*this)[p];
 
   if (c == out_of_board || c == empty) {
     return ps;
@@ -79,7 +79,7 @@ bool Board::alive_at(const Point& p) const {
   for (set<Point>::iterator i = ps->begin(); i != ps->end(); i++) {
     Points aps = i->around();
     for(set<Point>::iterator j = aps->begin() ; j != aps->end(); j++) {
-      if (operator[](*j) == empty) return true;
+      if ((*this)[*j] == empty) return true;
     }
   }
   return false;
