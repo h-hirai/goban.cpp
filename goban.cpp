@@ -87,5 +87,27 @@ bool Board::alive_at(const Point& p) const {
 
 int Board::put(const Point& p, color_t c) {
   (*this)[p] = c;
-  return 0;
+  Points aps = p.around();
+  Points captured(new set<Point>);
+
+  for (set<Point>::iterator i = aps->begin(); i != aps->end(); i++) {
+    color_t neighbor = (*this)[*i];
+    if (neighbor != c &&
+        neighbor != empty &&
+        neighbor != out_of_board &&
+        !alive_at(*i)) {
+      Points opponents = get_chain(*i);
+      for (set<Point>::iterator j = opponents->begin();
+           j != opponents->end();
+           j++) {
+        captured->insert(*j);
+      }
+    }
+  }
+
+  for (set<Point>::iterator i = captured->begin(); i != captured->end(); i++) {
+    (*this)[*i] = empty;
+  }
+
+  return captured->size();
 }
