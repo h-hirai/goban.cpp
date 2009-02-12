@@ -46,7 +46,8 @@ private:
   };
 
 public:
-  Board(const int size);
+  Board(const int);
+  Board(const Board&);
 
   vector<color_t>& operator[](const int);
   color_t& operator[](const Point&);

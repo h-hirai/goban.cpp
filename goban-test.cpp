@@ -311,3 +311,23 @@ BOOST_AUTO_TEST_CASE(board_test_put_2_3) {
 
   BOOST_CHECK(!b->can_put(Point(1, 0), black));
 }
+
+BOOST_AUTO_TEST_CASE(board_test_canput_1) {
+  Board b(7);
+  b[0][1] = white;
+  b[1][0] = white;
+  b[1][3] = white;
+  b[2][1] = white;
+  b[3][0] = white;
+  b[3][6] = black;
+  b[4][5] = black;
+  b[5][4] = black;
+  b[5][6] = black;
+  b[6][5] = black;
+
+  BOOST_CHECK(!b.can_put(Point(1, 0), black));
+  BOOST_CHECK(!b.can_put(Point(9, 0), black));
+  BOOST_CHECK( b.can_put(Point(3, 3), black));
+  BOOST_CHECK(!b.can_put(Point(0, 0), black));
+  BOOST_CHECK( b.can_put(Point(0, 0), white));
+}

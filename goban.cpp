@@ -31,6 +31,16 @@ Board::Board(const int size) :
   size(size),
   brd_state(vector<vector<color_t> >(size, vector<color_t>(size, empty))) {}
 
+Board::Board(const Board& other) :
+  size(other.size),
+  brd_state(vector<vector<color_t> >(other.size, vector<color_t>(other.size))) {
+  for (int y = 0; y < size; y++) {
+    for (int x = 0; x < size; x++) {
+      brd_state[y][x] = other.brd_state[y][x];
+    }
+  }
+}
+
 vector<color_t>& Board::operator[](const int y) {return brd_state[y];}
 color_t& Board::operator[](const Point& p)      {return brd_state[p.y][p.x];}
 color_t Board::operator[](const Point& p) const {
@@ -113,5 +123,11 @@ int Board::put(const Point& p, color_t c) {
 }
 
 bool Board::can_put(const Point& p, color_t c) const {
-  throw "not implemented yet";
+  if ((*this)[p] != empty) {
+    return false;
+  } else {
+    Board b = (*this);
+    b[p] = c;
+    return b.alive_at(p);
+  }
 }
