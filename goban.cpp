@@ -111,3 +111,7 @@ int Board::put(const Point& p, color_t c) {
 
   return captured->size();
 }
+
+bool Board::can_put(const Point& p, color_t c) const {
+  throw "not implemented yet";
+}
