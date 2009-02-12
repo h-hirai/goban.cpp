@@ -91,7 +91,7 @@ int Board::put(const Point& p, color_t c) {
   Points captured(new set<Point>);
 
   for (set<Point>::iterator i = aps->begin(); i != aps->end(); i++) {
-    color_t neighbor = (*this)[*i];
+    color_t neighbor = (*static_cast<const Board*>(this))[*i];
     if (neighbor != c &&
         neighbor != empty &&
         neighbor != out_of_board &&
