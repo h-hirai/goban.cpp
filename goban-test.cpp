@@ -331,3 +331,11 @@ BOOST_AUTO_TEST_CASE(board_test_canput_1) {
   BOOST_CHECK(!b.can_put(Point(0, 0), black));
   BOOST_CHECK( b.can_put(Point(0, 0), white));
 }
+
+BOOST_AUTO_TEST_CASE(board_test_canput_2) {
+  auto_ptr<Board> b = make_test_board_2();
+  BOOST_CHECK( b->can_put(Point(4, 4), black));
+  BOOST_CHECK( b->can_put(Point(0, 0), white));
+  b->put(Point(0, 2), white);
+  BOOST_CHECK(!b->can_put(Point(0, 0), black));
+}

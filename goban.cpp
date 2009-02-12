@@ -128,6 +128,18 @@ bool Board::can_put(const Point& p, color_t c) const {
   } else {
     Board b = (*this);
     b[p] = c;
-    return b.alive_at(p);
+    if (b.alive_at(p)) {
+      return true;
+    }
+    else {
+      Points aps = p.around();
+      for (set<Point>::iterator i = aps->begin(); i != aps->end(); i++) {
+        color_t neighbor = static_cast<const Board>(b)[*i];
+        if (neighbor != c && neighbor != out_of_board && !b.alive_at(*i)) {
+          return true;
+        }
+      }
+      return false;
+    }
   }
 }
