@@ -24,16 +24,24 @@ bool Point::operator<(const Point& p) const {
   return y < p.y || (y == p.y && x < p.x);
 }
 
+bool Point::operator==(const Point& p) const {
+  return x == p.x && y == p.y;
+}
+
 //
 // class Board
 
 Board::Board(const int size) :
   size(size),
-  brd_state(vector<vector<color_t> >(size, vector<color_t>(size, empty))) {}
+  brd_state(vector<vector<color_t> >(size, vector<color_t>(size, empty))),
+  ko_exist(false),
+  ko_point(Point(size, size)) {}
 
 Board::Board(const Board& other) :
   size(other.size),
-  brd_state(vector<vector<color_t> >(other.size, vector<color_t>(other.size))) {
+  brd_state(vector<vector<color_t> >(other.size, vector<color_t>(other.size))),
+  ko_exist(other.ko_exist),
+  ko_point(other.ko_point) {
   for (int y = 0; y < size; y++) {
     for (int x = 0; x < size; x++) {
       brd_state[y][x] = other.brd_state[y][x];
@@ -115,6 +123,16 @@ int Board::put(const Point& p, color_t c) {
     }
   }
 
+  if (captured->size() == 1 &&
+      get_chain(p)->size() == 1 &&
+      !alive_at(p)) {
+    ko_exist = true;
+    ko_point = *(captured->begin());
+  }
+  else {
+    ko_exist = false;
+  }
+
   for (set<Point>::iterator i = captured->begin(); i != captured->end(); i++) {
     (*this)[*i] = empty;
   }
@@ -125,7 +143,11 @@ int Board::put(const Point& p, color_t c) {
 bool Board::can_put(const Point& p, color_t c) const {
   if ((*this)[p] != empty) {
     return false;
-  } else {
+  }
+  else if (ko_exist && ko_point == p) {
+    return false;
+  }
+  else {
     Board b = (*this);
     b[p] = c;
     if (b.alive_at(p)) {

@@ -19,7 +19,7 @@ typedef auto_ptr<set<Point> > Points;
 
 class Point {
 public:
-  const int x, y;
+  int x, y;
   Point(const int, const int);
 
   Point up() const;
@@ -30,12 +30,15 @@ public:
   Points around() const;
 
   bool operator<(const Point&) const;
+  bool operator==(const Point&) const;
 };
 
 class Board {
 private:
   const int size;
   vector<vector<color_t> > brd_state;
+  bool ko_exist;
+  Point ko_point;
   class get_chain_aux {
   private:
     const Board& board;
