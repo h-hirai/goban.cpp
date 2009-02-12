@@ -278,3 +278,34 @@ BOOST_AUTO_TEST_CASE(board_test_put_2_2) {
   BOOST_CHECK_EQUAL((*b)[4][3], empty);
   BOOST_CHECK_EQUAL((*b)[4][4], black);
 }
+
+BOOST_AUTO_TEST_CASE(board_test_put_2_3) {
+  auto_ptr<Board> b = make_test_board_2();
+  int num_captured = b->put(Point(0, 0), white);
+  BOOST_CHECK_EQUAL(num_captured, 1);
+  BOOST_CHECK_EQUAL((*b)[0][0], white);
+  BOOST_CHECK_EQUAL((*b)[0][1], empty);
+  BOOST_CHECK_EQUAL((*b)[0][2], white);
+  BOOST_CHECK_EQUAL((*b)[0][3], empty);
+  BOOST_CHECK_EQUAL((*b)[0][4], empty);
+  BOOST_CHECK_EQUAL((*b)[1][0], black);
+  BOOST_CHECK_EQUAL((*b)[1][1], white);
+  BOOST_CHECK_EQUAL((*b)[1][2], empty);
+  BOOST_CHECK_EQUAL((*b)[1][3], empty);
+  BOOST_CHECK_EQUAL((*b)[1][4], empty);
+  BOOST_CHECK_EQUAL((*b)[2][0], empty);
+  BOOST_CHECK_EQUAL((*b)[2][1], empty);
+  BOOST_CHECK_EQUAL((*b)[2][2], empty);
+  BOOST_CHECK_EQUAL((*b)[2][3], black);
+  BOOST_CHECK_EQUAL((*b)[2][4], white);
+  BOOST_CHECK_EQUAL((*b)[3][0], empty);
+  BOOST_CHECK_EQUAL((*b)[3][1], empty);
+  BOOST_CHECK_EQUAL((*b)[3][2], black);
+  BOOST_CHECK_EQUAL((*b)[3][3], white);
+  BOOST_CHECK_EQUAL((*b)[3][4], black);
+  BOOST_CHECK_EQUAL((*b)[4][0], empty);
+  BOOST_CHECK_EQUAL((*b)[4][1], empty);
+  BOOST_CHECK_EQUAL((*b)[4][2], black);
+  BOOST_CHECK_EQUAL((*b)[4][3], white);
+  BOOST_CHECK_EQUAL((*b)[4][4], empty);
+}
