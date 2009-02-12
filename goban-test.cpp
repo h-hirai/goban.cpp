@@ -308,4 +308,6 @@ BOOST_AUTO_TEST_CASE(board_test_put_2_3) {
   BOOST_CHECK_EQUAL((*b)[4][2], black);
   BOOST_CHECK_EQUAL((*b)[4][3], white);
   BOOST_CHECK_EQUAL((*b)[4][4], empty);
+
+  BOOST_CHECK(!b->can_put(Point(1, 0), black));
 }
