@@ -339,3 +339,29 @@ BOOST_AUTO_TEST_CASE(board_test_canput_2) {
   b->put(Point(0, 2), white);
   BOOST_CHECK(!b->can_put(Point(0, 0), black));
 }
+
+BOOST_AUTO_TEST_CASE(x19board_test) {
+  Board b(19);
+
+  for (int y = 0; y < 19; y++) {
+    for (int x = 0; x < 19; x++) {
+      if (x == 9 && y == 9) continue;
+      b[y][x] = black;
+    }
+  }
+
+  BOOST_CHECK(!b.can_put(Point(9, 9), black));
+  BOOST_CHECK( b.can_put(Point(9, 9), white));
+  BOOST_CHECK_EQUAL(b.put(Point(9, 9), white), 19 * 19 - 1);
+
+  for (int y = 0; y < 19; y++) {
+    for (int x = 0; x < 19; x++) {
+      if (x == 0 && y == 0) continue;
+      b[y][x] = white;
+    }
+  }
+
+  BOOST_CHECK(!b.can_put(Point(0, 0), white));
+  BOOST_CHECK( b.can_put(Point(0, 0), black));
+  BOOST_CHECK_EQUAL(b.put(Point(0, 0), black), 19 * 19 - 1);
+}
