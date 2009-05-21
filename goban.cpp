@@ -33,7 +33,7 @@ bool Point::operator==(const Point& p) const {
 
 Board::Board(const int size) :
   size(size),
-  brd_state(vector<vector<color_t> >(size, vector<color_t>(size, empty))),
+  brd_state(size, vector<color_t>(size, empty)),
   ko_exist(false),
   ko_point(Point(size, size)) {}
 
