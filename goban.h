@@ -2,7 +2,7 @@
 
 #include <vector>
 #include <set>
-#include <memory>
+#include <tr1/memory>
 #include <numeric>
 
 enum color_t {
@@ -13,7 +13,7 @@ enum color_t {
 };
 
 class Point;
-typedef std::auto_ptr<std::set<Point> > Points;
+typedef std::tr1::shared_ptr<std::set<Point> > Points;
 
 class Point {
 public:
