@@ -1,5 +1,7 @@
 #include "goban.h"
 
+using namespace std;
+
 //
 // class Point
 

@@ -3,6 +3,7 @@
 #define BOOST_TEST_MODULE GobanTest
 #include <boost/test/unit_test.hpp>
 
+using namespace std;
 using namespace boost::unit_test_framework;
 
 BOOST_AUTO_TEST_CASE(point_test) {
