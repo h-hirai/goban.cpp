@@ -5,8 +5,6 @@
 #include <memory>
 #include <numeric>
 
-using namespace std;
-
 enum color_t {
   empty,
   black,
@@ -15,7 +13,7 @@ enum color_t {
 };
 
 class Point;
-typedef auto_ptr<set<Point> > Points;
+typedef std::auto_ptr<std::set<Point> > Points;
 
 class Point {
 public:
@@ -36,7 +34,7 @@ public:
 class Board {
 private:
   const int size;
-  vector<vector<color_t> > brd_state;
+  std::vector<std::vector<color_t> > brd_state;
   bool ko_exist;
   Point ko_point;
   class get_chain_aux {
@@ -52,7 +50,7 @@ public:
   Board(const int);
   Board(const Board&);
 
-  vector<color_t>& operator[](const int);
+  std::vector<color_t>& operator[](const int);
   color_t& operator[](const Point&);
   color_t operator[](const Point&) const;
 
