@@ -55,7 +55,7 @@ private:
         return ps;
       }
       else {
-        Points aps = p.around();
+        const Points aps = p.around();
         ps->insert(p);
         return accumulate(aps->begin(), aps->end(), ps, *this);
       }
