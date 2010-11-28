@@ -110,10 +110,14 @@ public:
   }
 
   bool alive_at(const Point& p) const {
-    Points ps = get_chain(p);
-    for (std::set<Point>::iterator i = ps->begin(); i != ps->end(); i++) {
-      Points aps = i->around();
-      for(std::set<Point>::iterator j = aps->begin(); j != aps->end(); j++) {
+    const Points ps = get_chain(p);
+    for (std::set<Point>::const_iterator i = ps->begin();
+         i != ps->end();
+         i++) {
+      const Points aps = i->around();
+      for(std::set<Point>::const_iterator j = aps->begin();
+          j != aps->end();
+          j++) {
         if ((*this)[*j] == empty) return true;
       }
     }
@@ -122,17 +126,18 @@ public:
 
   int put(const Point& p, const color_t c) {
     (*this)[p] = c;
-    Points aps = p.around();
+    const Points aps = p.around();
     Points captured(new std::set<Point>);
-
-    for (std::set<Point>::iterator i = aps->begin(); i != aps->end(); i++) {
+    for (std::set<Point>::const_iterator i = aps->begin();
+         i != aps->end();
+         i++) {
       const color_t neighbor = (*static_cast<const Board*>(this))[*i];
       if (neighbor != c &&
           neighbor != empty &&
           neighbor != out_of_board &&
           !alive_at(*i)) {
-        Points opponents = get_chain(*i);
-        for (std::set<Point>::iterator j = opponents->begin();
+        const Points opponents = get_chain(*i);
+        for (std::set<Point>::const_iterator j = opponents->begin();
              j != opponents->end();
              j++) {
           captured->insert(*j);
@@ -150,7 +155,7 @@ public:
       ko_exist = false;
     }
 
-    for (std::set<Point>::iterator i = captured->begin();
+    for (std::set<Point>::const_iterator i = captured->begin();
          i != captured->end();
          i++) {
       (*this)[*i] = empty;
@@ -173,8 +178,10 @@ public:
         return true;
       }
       else {
-        Points aps = p.around();
-        for (std::set<Point>::iterator i = aps->begin(); i != aps->end(); i++) {
+        const Points aps = p.around();
+        for (std::set<Point>::const_iterator i = aps->begin();
+             i != aps->end();
+             i++) {
           const color_t neighbor = static_cast<const Board>(b)[*i];
           if (neighbor != c && neighbor != out_of_board && !b.alive_at(*i)) {
             return true;
