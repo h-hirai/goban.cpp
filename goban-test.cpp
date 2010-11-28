@@ -1,4 +1,4 @@
-#include "goban.h"
+#include "goban.hpp"
 
 #define BOOST_TEST_MODULE GobanTest
 #include <boost/test/unit_test.hpp>
@@ -54,7 +54,7 @@ BOOST_AUTO_TEST_CASE(point_test) {
 BOOST_AUTO_TEST_CASE(board_test) {
   BOOST_TEST_CHECKPOINT("initialization");
 
-  Board b(3);
+  Board<3> b;
 
   for (int y = 0; y < 3; y++) {
     for (int x = 0; x < 3; x++) {
@@ -73,7 +73,7 @@ BOOST_AUTO_TEST_CASE(board_test) {
 }
 
 BOOST_AUTO_TEST_CASE(board_test_get_chain) {
-  Board b(5);
+  Board<5> b;
 
   b[Point(1, 1)] = white;
   b[Point(1, 2)] = white;
@@ -129,9 +129,9 @@ BOOST_AUTO_TEST_CASE(board_test_get_chain) {
 BOOST_AUTO_TEST_CASE(board_test_alive_at) {
   BOOST_TEST_CHECKPOINT("preparing test data...");
 
-  Board b1(5);
-  Board b2(5);
-  Board b3(5);
+  Board<5> b1;
+  Board<5> b2;
+  Board<5> b3;
 
   b1[0][1] = black;
   b1[0][3] = black;
@@ -185,7 +185,7 @@ BOOST_AUTO_TEST_CASE(board_test_alive_at) {
 }
 
 BOOST_AUTO_TEST_CASE(board_test_put_1) {
-  Board b(5);
+  Board<5> b;
   int num_captured = b.put(Point(1, 3), black);
   BOOST_CHECK_EQUAL(num_captured, 0);
   for (int y = 0; y < 5; y++) {
@@ -202,8 +202,8 @@ BOOST_AUTO_TEST_CASE(board_test_put_1) {
   }
 }
 
-tr1::shared_ptr<Board> make_test_board_2() {
-  tr1::shared_ptr<Board> b(new Board(5));
+tr1::shared_ptr<Board<5> > make_test_board_2() {
+  tr1::shared_ptr<Board<5> > b(new Board<5>);
   (*b)[0][1] = black;
   (*b)[0][2] = white;
   (*b)[1][0] = black;
@@ -219,7 +219,7 @@ tr1::shared_ptr<Board> make_test_board_2() {
 }
 
 BOOST_AUTO_TEST_CASE(board_test_put_2_1) {
-  tr1::shared_ptr<Board> b = make_test_board_2();
+  tr1::shared_ptr<Board<5> > b = make_test_board_2();
   int num_captured = b->put(Point(4, 1), black);
   BOOST_CHECK_EQUAL(num_captured, 1);
   BOOST_CHECK_EQUAL((*b)[0][0], empty);
@@ -250,7 +250,7 @@ BOOST_AUTO_TEST_CASE(board_test_put_2_1) {
 }
 
 BOOST_AUTO_TEST_CASE(board_test_put_2_2) {
-  tr1::shared_ptr<Board> b = make_test_board_2();
+  tr1::shared_ptr<Board<5> > b = make_test_board_2();
   int num_captured = b->put(Point(4, 4), black);
   BOOST_CHECK_EQUAL(num_captured, 2);
   BOOST_CHECK_EQUAL((*b)[0][0], empty);
@@ -281,7 +281,7 @@ BOOST_AUTO_TEST_CASE(board_test_put_2_2) {
 }
 
 BOOST_AUTO_TEST_CASE(board_test_put_2_3) {
-  tr1::shared_ptr<Board> b = make_test_board_2();
+  tr1::shared_ptr<Board<5> > b = make_test_board_2();
   int num_captured = b->put(Point(0, 0), white);
   BOOST_CHECK_EQUAL(num_captured, 1);
   BOOST_CHECK_EQUAL((*b)[0][0], white);
@@ -314,7 +314,7 @@ BOOST_AUTO_TEST_CASE(board_test_put_2_3) {
 }
 
 BOOST_AUTO_TEST_CASE(board_test_canput_1) {
-  Board b(7);
+  Board<7> b;
   b[0][1] = white;
   b[1][0] = white;
   b[1][3] = white;
@@ -334,7 +334,7 @@ BOOST_AUTO_TEST_CASE(board_test_canput_1) {
 }
 
 BOOST_AUTO_TEST_CASE(board_test_canput_2) {
-  tr1::shared_ptr<Board> b = make_test_board_2();
+  tr1::shared_ptr<Board<5> > b = make_test_board_2();
   BOOST_CHECK( b->can_put(Point(4, 4), black));
   BOOST_CHECK( b->can_put(Point(0, 0), white));
   b->put(Point(0, 2), white);
@@ -342,7 +342,7 @@ BOOST_AUTO_TEST_CASE(board_test_canput_2) {
 }
 
 BOOST_AUTO_TEST_CASE(x19board_test) {
-  Board b(19);
+  Board<19> b;
 
   for (int y = 0; y < 19; y++) {
     for (int x = 0; x < 19; x++) {
