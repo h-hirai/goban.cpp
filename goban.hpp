@@ -120,13 +120,13 @@ public:
     return false;
   }
 
-  int put(const Point& p, color_t c) {
+  int put(const Point& p, const color_t c) {
     (*this)[p] = c;
     Points aps = p.around();
     Points captured(new std::set<Point>);
 
     for (std::set<Point>::iterator i = aps->begin(); i != aps->end(); i++) {
-      color_t neighbor = (*static_cast<const Board*>(this))[*i];
+      const color_t neighbor = (*static_cast<const Board*>(this))[*i];
       if (neighbor != c &&
           neighbor != empty &&
           neighbor != out_of_board &&
@@ -159,7 +159,7 @@ public:
     return captured->size();
   }
 
-  bool can_put(const Point& p, color_t c) const {
+  bool can_put(const Point& p, const color_t c) const {
     if ((*this)[p] != empty) {
       return false;
     }
@@ -175,7 +175,7 @@ public:
       else {
         Points aps = p.around();
         for (std::set<Point>::iterator i = aps->begin(); i != aps->end(); i++) {
-          color_t neighbor = static_cast<const Board>(b)[*i];
+          const color_t neighbor = static_cast<const Board>(b)[*i];
           if (neighbor != c && neighbor != out_of_board && !b.alive_at(*i)) {
             return true;
           }
