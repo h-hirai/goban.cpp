@@ -98,7 +98,7 @@ public:
 
   Points get_chain(const Point& p) const {
     Points ps(new std::set<Point>);
-    color_t c = (*this)[p];
+    const color_t c = (*this)[p];
 
     if (c == out_of_board || c == empty) {
       return ps;
