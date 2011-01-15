@@ -14,10 +14,11 @@ enum color_t {
 
 class Point;
 typedef std::tr1::shared_ptr<std::set<Point> > Points;
+typedef std::tr1::shared_ptr<Point> Point_ptr;
 
 class Point {
 public:
-  int x, y;
+  const int x, y;
   Point(const int, const int);
 
   Point up() const;
@@ -35,8 +36,7 @@ template<size_t N>
 class Board {
 private:
   std::tr1::array<std::tr1::array<color_t, N>, N> brd_state;
-  bool ko_exist;
-  Point ko_point;
+  Point_ptr ko_point;
 
   class get_chain_aux {
   private:
@@ -63,7 +63,7 @@ private:
   };
 
 public:
-  Board() : ko_exist(false), ko_point(Point(N, N)) {
+  Board() {
     for (unsigned int y = 0; y < N; y++) {
       for (unsigned int x = 0; x < N; x++) {
         brd_state[y][x] = empty;
@@ -73,7 +73,6 @@ public:
 
   Board(const Board<N>& other) :
     brd_state(other.brd_state),
-    ko_exist(other.ko_exist),
     ko_point(other.ko_point) {}
 
   std::tr1::array<color_t, N>& operator[](const int y) {
@@ -148,11 +147,10 @@ public:
     if (captured->size() == 1 &&
         get_chain(p)->size() == 1 &&
         !alive_at(p)) {
-      ko_exist = true;
-      ko_point = *(captured->begin());
+      ko_point = Point_ptr(new Point(*(captured->begin())));
     }
     else {
-      ko_exist = false;
+      ko_point = Point_ptr();
     }
 
     for (std::set<Point>::const_iterator i = captured->begin();
@@ -168,7 +166,7 @@ public:
     if ((*this)[p] != empty) {
       return false;
     }
-    else if (ko_exist && ko_point == p) {
+    else if (ko_point && *ko_point == p) {
       return false;
     }
     else {
