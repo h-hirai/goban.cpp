@@ -130,7 +130,7 @@ public:
     for (std::set<Point>::const_iterator i = aps->begin();
          i != aps->end();
          i++) {
-      const color_t neighbor = (*static_cast<const Board*>(this))[*i];
+      const color_t neighbor = (static_cast<const Board>(*this))[*i];
       if (neighbor != c &&
           neighbor != empty &&
           neighbor != out_of_board &&
