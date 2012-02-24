@@ -1,8 +1,13 @@
 #! /bin/bash
 
 prefix=/opt/local
-cpp=clang++
 
-${cpp} -Wall -I${prefix}/include \
+#cppc=g++
+cppc=clang++
+
+#cppcopts=--std=c++11
+cppcopts=
+
+${cppc} -Wall ${cppcopts} -I${prefix}/include \
     goban.cpp goban-test.cpp ${prefix}/lib/libboost_unit_test_framework.a \
     -o goban-test
