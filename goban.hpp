@@ -4,6 +4,8 @@
 #include <set>
 #include <tr1/memory>
 #include <numeric>
+#include <iostream>
+#include <cassert>
 
 enum color_t {
   empty,
@@ -190,3 +192,26 @@ public:
     }
   }
 };
+
+template <size_t N>
+std::ostream& operator<<(std::ostream& os, const Board<N> b) {
+  for (size_t y = 0; y < N; y++) {
+    for (size_t x = 0; x < N; x++) {
+      switch (b[Point(x, y)]) {
+      case empty:
+        os << '.';
+        break;
+      case black:
+        os << 'x';
+        break;
+      case white:
+        os << 'o';
+        break;
+      case out_of_board:
+        assert(false); // should never reach here
+      }
+    }
+    os << std::endl;
+  }
+  return os;
+}
