@@ -2,12 +2,17 @@
 
 prefix=/opt/local
 
-#cppc=g++
-cppc=clang++
-
-#cppcopts=--std=c++11
-cppcopts=
+if [ "${1}" == "clang" ]; then
+    cppc=clang++
+    cppcopts=
+else
+    cppc=g++
+    cppcopts=--std=c++11
+fi
 
 ${cppc} -Wall ${cppcopts} -I${prefix}/include \
     goban.cpp goban-test.cpp ${prefix}/lib/libboost_unit_test_framework.a \
     -o goban-test
+${cppc} -Wall ${cppcopts} -I${prefix}/include \
+    goban.cpp goban-bench.cpp \
+    -o goban-bench
