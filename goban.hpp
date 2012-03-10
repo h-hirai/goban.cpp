@@ -1,8 +1,8 @@
 // -*- c++ -*-
 
-#include <tr1/array>
+#include <array>
 #include <set>
-#include <tr1/memory>
+#include <memory>
 #include <numeric>
 #include <iostream>
 #include <cassert>
@@ -15,8 +15,8 @@ enum color_t {
 };
 
 class Point;
-typedef std::tr1::shared_ptr<std::set<Point> > Points;
-typedef std::tr1::shared_ptr<Point> Point_ptr;
+typedef std::shared_ptr<std::set<Point> > Points;
+typedef std::shared_ptr<Point> Point_ptr;
 
 class Point {
 public:
@@ -37,7 +37,7 @@ public:
 template<size_t N>
 class Board {
 private:
-  std::tr1::array<std::tr1::array<color_t, N>, N> brd_state;
+  std::array<std::array<color_t, N>, N> brd_state;
   Point_ptr ko_point;
 
   class get_chain_aux {
@@ -77,7 +77,7 @@ public:
     brd_state(other.brd_state),
     ko_point(other.ko_point) {}
 
-  std::tr1::array<color_t, N>& operator[](const int y) {
+  std::array<color_t, N>& operator[](const int y) {
     return brd_state[y];
   }
 
