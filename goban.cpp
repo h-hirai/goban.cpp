@@ -29,3 +29,21 @@ bool Point::operator<(const Point& p) const {
 bool Point::operator==(const Point& p) const {
   return x == p.x && y == p.y;
 }
+
+std::ostream& operator<<(std::ostream& os, const color_t c) {
+  switch (c) {
+  case color_t::empty:
+    os << "empty";
+    break;
+  case color_t::black:
+    os << "black";
+    break;
+  case color_t::white:
+    os << "white";
+    break;
+  case color_t::out_of_board:
+    os << "out_of_board";
+    break;
+  }
+  return os;
+}

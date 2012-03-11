@@ -58,34 +58,34 @@ BOOST_AUTO_TEST_CASE(board_test) {
 
   for (int y = 0; y < 3; y++) {
     for (int x = 0; x < 3; x++) {
-      BOOST_CHECK_EQUAL(b[Point(x, y)], empty);
+      BOOST_CHECK_EQUAL(b[Point(x, y)], color_t::empty);
     }
   }
 
   BOOST_TEST_CHECKPOINT("setting and reference");
 
-  b[Point(1, 1)] = black;
-  b[Point(1, 2)] = white;
+  b[Point(1, 1)] = color_t::black;
+  b[Point(1, 2)] = color_t::white;
 
-  BOOST_CHECK_EQUAL(b[Point(1, 0)], empty);
-  BOOST_CHECK_EQUAL(b[Point(1, 1)], black);
-  BOOST_CHECK_EQUAL(b[Point(1, 2)], white);
+  BOOST_CHECK_EQUAL(b[Point(1, 0)], color_t::empty);
+  BOOST_CHECK_EQUAL(b[Point(1, 1)], color_t::black);
+  BOOST_CHECK_EQUAL(b[Point(1, 2)], color_t::white);
 }
 
 BOOST_AUTO_TEST_CASE(board_test_get_chain) {
   Board<5> b;
 
-  b[Point(1, 1)] = white;
-  b[Point(1, 2)] = white;
-  b[Point(1, 3)] = white;
-  b[Point(2, 1)] = white;
-  b[Point(2, 2)] = black;
-  b[Point(2, 3)] = white;
-  b[Point(3, 1)] = black;
-  b[Point(3, 3)] = black;
-  b[Point(4, 1)] = black;
-  b[Point(4, 2)] = black;
-  b[Point(4, 3)] = black;
+  b[Point(1, 1)] = color_t::white;
+  b[Point(1, 2)] = color_t::white;
+  b[Point(1, 3)] = color_t::white;
+  b[Point(2, 1)] = color_t::white;
+  b[Point(2, 2)] = color_t::black;
+  b[Point(2, 3)] = color_t::white;
+  b[Point(3, 1)] = color_t::black;
+  b[Point(3, 3)] = color_t::black;
+  b[Point(4, 1)] = color_t::black;
+  b[Point(4, 2)] = color_t::black;
+  b[Point(4, 3)] = color_t::black;
 
   Points ps;
 
@@ -133,44 +133,44 @@ BOOST_AUTO_TEST_CASE(board_test_alive_at) {
   Board<5> b2;
   Board<5> b3;
 
-  b1[0][1] = black;
-  b1[0][3] = black;
-  b1[1][2] = black;
-  b1[2][2] = black;
-  b1[3][2] = black;
-  b1[4][1] = black;
-  b1[4][3] = black;
-  b1[0][2] = white;
-  b1[1][1] = white;
-  b1[1][3] = white;
-  b1[2][1] = white;
-  b1[2][3] = white;
-  b1[3][1] = white;
-  b1[3][3] = white;
-  b1[4][2] = white;
+  b1[0][1] = color_t::black;
+  b1[0][3] = color_t::black;
+  b1[1][2] = color_t::black;
+  b1[2][2] = color_t::black;
+  b1[3][2] = color_t::black;
+  b1[4][1] = color_t::black;
+  b1[4][3] = color_t::black;
+  b1[0][2] = color_t::white;
+  b1[1][1] = color_t::white;
+  b1[1][3] = color_t::white;
+  b1[2][1] = color_t::white;
+  b1[2][3] = color_t::white;
+  b1[3][1] = color_t::white;
+  b1[3][3] = color_t::white;
+  b1[4][2] = color_t::white;
 
-  b2[0][1] = black;
-  b2[0][3] = black;
-  b2[1][1] = black;
-  b2[1][3] = black;
-  b2[2][1] = black;
-  b2[2][3] = black;
-  b2[3][2] = black;
-  b2[0][2] = white;
-  b2[1][2] = white;
-  b2[2][2] = white;
-  b2[3][1] = white;
-  b2[3][3] = white;
+  b2[0][1] = color_t::black;
+  b2[0][3] = color_t::black;
+  b2[1][1] = color_t::black;
+  b2[1][3] = color_t::black;
+  b2[2][1] = color_t::black;
+  b2[2][3] = color_t::black;
+  b2[3][2] = color_t::black;
+  b2[0][2] = color_t::white;
+  b2[1][2] = color_t::white;
+  b2[2][2] = color_t::white;
+  b2[3][1] = color_t::white;
+  b2[3][3] = color_t::white;
 
-  b3[0][4] = black;
-  b3[1][4] = black;
-  b3[2][3] = black;
-  b3[3][3] = black;
-  b3[4][3] = black;
-  b3[0][3] = white;
-  b3[2][4] = white;
-  b3[3][4] = white;
-  b3[4][4] = white;
+  b3[0][4] = color_t::black;
+  b3[1][4] = color_t::black;
+  b3[2][3] = color_t::black;
+  b3[3][3] = color_t::black;
+  b3[4][3] = color_t::black;
+  b3[0][3] = color_t::white;
+  b3[2][4] = color_t::white;
+  b3[3][4] = color_t::white;
+  b3[4][4] = color_t::white;
 
   BOOST_TEST_CHECKPOINT("preparing test data done");
 
@@ -186,16 +186,16 @@ BOOST_AUTO_TEST_CASE(board_test_alive_at) {
 
 BOOST_AUTO_TEST_CASE(board_test_put_1) {
   Board<5> b;
-  int num_captured = b.put(Point(1, 3), black);
+  int num_captured = b.put(Point(1, 3), color_t::black);
   BOOST_CHECK_EQUAL(num_captured, 0);
   for (int y = 0; y < 5; y++) {
     for (int x = 0; x < 5; x++) {
       color_t expect;
       if (x == 1 && y == 3) {
-        expect = black;
+        expect = color_t::black;
       }
       else {
-        expect = empty;
+        expect = color_t::empty;
       }
       BOOST_CHECK_EQUAL(b[y][x], expect);
     }
@@ -204,141 +204,141 @@ BOOST_AUTO_TEST_CASE(board_test_put_1) {
 
 shared_ptr<Board<5> > make_test_board_2() {
   shared_ptr<Board<5> > b(new Board<5>);
-  (*b)[0][1] = black;
-  (*b)[0][2] = white;
-  (*b)[1][0] = black;
-  (*b)[1][1] = white;
-  (*b)[2][3] = black;
-  (*b)[2][4] = white;
-  (*b)[3][2] = black;
-  (*b)[3][3] = white;
-  (*b)[3][4] = black;
-  (*b)[4][2] = black;
-  (*b)[4][3] = white;
+  (*b)[0][1] = color_t::black;
+  (*b)[0][2] = color_t::white;
+  (*b)[1][0] = color_t::black;
+  (*b)[1][1] = color_t::white;
+  (*b)[2][3] = color_t::black;
+  (*b)[2][4] = color_t::white;
+  (*b)[3][2] = color_t::black;
+  (*b)[3][3] = color_t::white;
+  (*b)[3][4] = color_t::black;
+  (*b)[4][2] = color_t::black;
+  (*b)[4][3] = color_t::white;
   return b;
 }
 
 BOOST_AUTO_TEST_CASE(board_test_put_2_1) {
   shared_ptr<Board<5> > b = make_test_board_2();
-  int num_captured = b->put(Point(4, 1), black);
+  int num_captured = b->put(Point(4, 1), color_t::black);
   BOOST_CHECK_EQUAL(num_captured, 1);
-  BOOST_CHECK_EQUAL((*b)[0][0], empty);
-  BOOST_CHECK_EQUAL((*b)[0][1], black);
-  BOOST_CHECK_EQUAL((*b)[0][2], white);
-  BOOST_CHECK_EQUAL((*b)[0][3], empty);
-  BOOST_CHECK_EQUAL((*b)[0][4], empty);
-  BOOST_CHECK_EQUAL((*b)[1][0], black);
-  BOOST_CHECK_EQUAL((*b)[1][1], white);
-  BOOST_CHECK_EQUAL((*b)[1][2], empty);
-  BOOST_CHECK_EQUAL((*b)[1][3], empty);
-  BOOST_CHECK_EQUAL((*b)[1][4], black);
-  BOOST_CHECK_EQUAL((*b)[2][0], empty);
-  BOOST_CHECK_EQUAL((*b)[2][1], empty);
-  BOOST_CHECK_EQUAL((*b)[2][2], empty);
-  BOOST_CHECK_EQUAL((*b)[2][3], black);
-  BOOST_CHECK_EQUAL((*b)[2][4], empty);
-  BOOST_CHECK_EQUAL((*b)[3][0], empty);
-  BOOST_CHECK_EQUAL((*b)[3][1], empty);
-  BOOST_CHECK_EQUAL((*b)[3][2], black);
-  BOOST_CHECK_EQUAL((*b)[3][3], white);
-  BOOST_CHECK_EQUAL((*b)[3][4], black);
-  BOOST_CHECK_EQUAL((*b)[4][0], empty);
-  BOOST_CHECK_EQUAL((*b)[4][1], empty);
-  BOOST_CHECK_EQUAL((*b)[4][2], black);
-  BOOST_CHECK_EQUAL((*b)[4][3], white);
-  BOOST_CHECK_EQUAL((*b)[4][4], empty);
+  BOOST_CHECK_EQUAL((*b)[0][0], color_t::empty);
+  BOOST_CHECK_EQUAL((*b)[0][1], color_t::black);
+  BOOST_CHECK_EQUAL((*b)[0][2], color_t::white);
+  BOOST_CHECK_EQUAL((*b)[0][3], color_t::empty);
+  BOOST_CHECK_EQUAL((*b)[0][4], color_t::empty);
+  BOOST_CHECK_EQUAL((*b)[1][0], color_t::black);
+  BOOST_CHECK_EQUAL((*b)[1][1], color_t::white);
+  BOOST_CHECK_EQUAL((*b)[1][2], color_t::empty);
+  BOOST_CHECK_EQUAL((*b)[1][3], color_t::empty);
+  BOOST_CHECK_EQUAL((*b)[1][4], color_t::black);
+  BOOST_CHECK_EQUAL((*b)[2][0], color_t::empty);
+  BOOST_CHECK_EQUAL((*b)[2][1], color_t::empty);
+  BOOST_CHECK_EQUAL((*b)[2][2], color_t::empty);
+  BOOST_CHECK_EQUAL((*b)[2][3], color_t::black);
+  BOOST_CHECK_EQUAL((*b)[2][4], color_t::empty);
+  BOOST_CHECK_EQUAL((*b)[3][0], color_t::empty);
+  BOOST_CHECK_EQUAL((*b)[3][1], color_t::empty);
+  BOOST_CHECK_EQUAL((*b)[3][2], color_t::black);
+  BOOST_CHECK_EQUAL((*b)[3][3], color_t::white);
+  BOOST_CHECK_EQUAL((*b)[3][4], color_t::black);
+  BOOST_CHECK_EQUAL((*b)[4][0], color_t::empty);
+  BOOST_CHECK_EQUAL((*b)[4][1], color_t::empty);
+  BOOST_CHECK_EQUAL((*b)[4][2], color_t::black);
+  BOOST_CHECK_EQUAL((*b)[4][3], color_t::white);
+  BOOST_CHECK_EQUAL((*b)[4][4], color_t::empty);
 }
 
 BOOST_AUTO_TEST_CASE(board_test_put_2_2) {
   shared_ptr<Board<5> > b = make_test_board_2();
-  int num_captured = b->put(Point(4, 4), black);
+  int num_captured = b->put(Point(4, 4), color_t::black);
   BOOST_CHECK_EQUAL(num_captured, 2);
-  BOOST_CHECK_EQUAL((*b)[0][0], empty);
-  BOOST_CHECK_EQUAL((*b)[0][1], black);
-  BOOST_CHECK_EQUAL((*b)[0][2], white);
-  BOOST_CHECK_EQUAL((*b)[0][3], empty);
-  BOOST_CHECK_EQUAL((*b)[0][4], empty);
-  BOOST_CHECK_EQUAL((*b)[1][0], black);
-  BOOST_CHECK_EQUAL((*b)[1][1], white);
-  BOOST_CHECK_EQUAL((*b)[1][2], empty);
-  BOOST_CHECK_EQUAL((*b)[1][3], empty);
-  BOOST_CHECK_EQUAL((*b)[1][4], empty);
-  BOOST_CHECK_EQUAL((*b)[2][0], empty);
-  BOOST_CHECK_EQUAL((*b)[2][1], empty);
-  BOOST_CHECK_EQUAL((*b)[2][2], empty);
-  BOOST_CHECK_EQUAL((*b)[2][3], black);
-  BOOST_CHECK_EQUAL((*b)[2][4], white);
-  BOOST_CHECK_EQUAL((*b)[3][0], empty);
-  BOOST_CHECK_EQUAL((*b)[3][1], empty);
-  BOOST_CHECK_EQUAL((*b)[3][2], black);
-  BOOST_CHECK_EQUAL((*b)[3][3], empty);
-  BOOST_CHECK_EQUAL((*b)[3][4], black);
-  BOOST_CHECK_EQUAL((*b)[4][0], empty);
-  BOOST_CHECK_EQUAL((*b)[4][1], empty);
-  BOOST_CHECK_EQUAL((*b)[4][2], black);
-  BOOST_CHECK_EQUAL((*b)[4][3], empty);
-  BOOST_CHECK_EQUAL((*b)[4][4], black);
+  BOOST_CHECK_EQUAL((*b)[0][0], color_t::empty);
+  BOOST_CHECK_EQUAL((*b)[0][1], color_t::black);
+  BOOST_CHECK_EQUAL((*b)[0][2], color_t::white);
+  BOOST_CHECK_EQUAL((*b)[0][3], color_t::empty);
+  BOOST_CHECK_EQUAL((*b)[0][4], color_t::empty);
+  BOOST_CHECK_EQUAL((*b)[1][0], color_t::black);
+  BOOST_CHECK_EQUAL((*b)[1][1], color_t::white);
+  BOOST_CHECK_EQUAL((*b)[1][2], color_t::empty);
+  BOOST_CHECK_EQUAL((*b)[1][3], color_t::empty);
+  BOOST_CHECK_EQUAL((*b)[1][4], color_t::empty);
+  BOOST_CHECK_EQUAL((*b)[2][0], color_t::empty);
+  BOOST_CHECK_EQUAL((*b)[2][1], color_t::empty);
+  BOOST_CHECK_EQUAL((*b)[2][2], color_t::empty);
+  BOOST_CHECK_EQUAL((*b)[2][3], color_t::black);
+  BOOST_CHECK_EQUAL((*b)[2][4], color_t::white);
+  BOOST_CHECK_EQUAL((*b)[3][0], color_t::empty);
+  BOOST_CHECK_EQUAL((*b)[3][1], color_t::empty);
+  BOOST_CHECK_EQUAL((*b)[3][2], color_t::black);
+  BOOST_CHECK_EQUAL((*b)[3][3], color_t::empty);
+  BOOST_CHECK_EQUAL((*b)[3][4], color_t::black);
+  BOOST_CHECK_EQUAL((*b)[4][0], color_t::empty);
+  BOOST_CHECK_EQUAL((*b)[4][1], color_t::empty);
+  BOOST_CHECK_EQUAL((*b)[4][2], color_t::black);
+  BOOST_CHECK_EQUAL((*b)[4][3], color_t::empty);
+  BOOST_CHECK_EQUAL((*b)[4][4], color_t::black);
 }
 
 BOOST_AUTO_TEST_CASE(board_test_put_2_3) {
   shared_ptr<Board<5> > b = make_test_board_2();
-  int num_captured = b->put(Point(0, 0), white);
+  int num_captured = b->put(Point(0, 0), color_t::white);
   BOOST_CHECK_EQUAL(num_captured, 1);
-  BOOST_CHECK_EQUAL((*b)[0][0], white);
-  BOOST_CHECK_EQUAL((*b)[0][1], empty);
-  BOOST_CHECK_EQUAL((*b)[0][2], white);
-  BOOST_CHECK_EQUAL((*b)[0][3], empty);
-  BOOST_CHECK_EQUAL((*b)[0][4], empty);
-  BOOST_CHECK_EQUAL((*b)[1][0], black);
-  BOOST_CHECK_EQUAL((*b)[1][1], white);
-  BOOST_CHECK_EQUAL((*b)[1][2], empty);
-  BOOST_CHECK_EQUAL((*b)[1][3], empty);
-  BOOST_CHECK_EQUAL((*b)[1][4], empty);
-  BOOST_CHECK_EQUAL((*b)[2][0], empty);
-  BOOST_CHECK_EQUAL((*b)[2][1], empty);
-  BOOST_CHECK_EQUAL((*b)[2][2], empty);
-  BOOST_CHECK_EQUAL((*b)[2][3], black);
-  BOOST_CHECK_EQUAL((*b)[2][4], white);
-  BOOST_CHECK_EQUAL((*b)[3][0], empty);
-  BOOST_CHECK_EQUAL((*b)[3][1], empty);
-  BOOST_CHECK_EQUAL((*b)[3][2], black);
-  BOOST_CHECK_EQUAL((*b)[3][3], white);
-  BOOST_CHECK_EQUAL((*b)[3][4], black);
-  BOOST_CHECK_EQUAL((*b)[4][0], empty);
-  BOOST_CHECK_EQUAL((*b)[4][1], empty);
-  BOOST_CHECK_EQUAL((*b)[4][2], black);
-  BOOST_CHECK_EQUAL((*b)[4][3], white);
-  BOOST_CHECK_EQUAL((*b)[4][4], empty);
+  BOOST_CHECK_EQUAL((*b)[0][0], color_t::white);
+  BOOST_CHECK_EQUAL((*b)[0][1], color_t::empty);
+  BOOST_CHECK_EQUAL((*b)[0][2], color_t::white);
+  BOOST_CHECK_EQUAL((*b)[0][3], color_t::empty);
+  BOOST_CHECK_EQUAL((*b)[0][4], color_t::empty);
+  BOOST_CHECK_EQUAL((*b)[1][0], color_t::black);
+  BOOST_CHECK_EQUAL((*b)[1][1], color_t::white);
+  BOOST_CHECK_EQUAL((*b)[1][2], color_t::empty);
+  BOOST_CHECK_EQUAL((*b)[1][3], color_t::empty);
+  BOOST_CHECK_EQUAL((*b)[1][4], color_t::empty);
+  BOOST_CHECK_EQUAL((*b)[2][0], color_t::empty);
+  BOOST_CHECK_EQUAL((*b)[2][1], color_t::empty);
+  BOOST_CHECK_EQUAL((*b)[2][2], color_t::empty);
+  BOOST_CHECK_EQUAL((*b)[2][3], color_t::black);
+  BOOST_CHECK_EQUAL((*b)[2][4], color_t::white);
+  BOOST_CHECK_EQUAL((*b)[3][0], color_t::empty);
+  BOOST_CHECK_EQUAL((*b)[3][1], color_t::empty);
+  BOOST_CHECK_EQUAL((*b)[3][2], color_t::black);
+  BOOST_CHECK_EQUAL((*b)[3][3], color_t::white);
+  BOOST_CHECK_EQUAL((*b)[3][4], color_t::black);
+  BOOST_CHECK_EQUAL((*b)[4][0], color_t::empty);
+  BOOST_CHECK_EQUAL((*b)[4][1], color_t::empty);
+  BOOST_CHECK_EQUAL((*b)[4][2], color_t::black);
+  BOOST_CHECK_EQUAL((*b)[4][3], color_t::white);
+  BOOST_CHECK_EQUAL((*b)[4][4], color_t::empty);
 
-  BOOST_CHECK(!b->can_put(Point(1, 0), black));
+  BOOST_CHECK(!b->can_put(Point(1, 0), color_t::black));
 }
 
 BOOST_AUTO_TEST_CASE(board_test_canput_1) {
   Board<7> b;
-  b[0][1] = white;
-  b[1][0] = white;
-  b[1][3] = white;
-  b[2][1] = white;
-  b[3][0] = white;
-  b[3][6] = black;
-  b[4][5] = black;
-  b[5][4] = black;
-  b[5][6] = black;
-  b[6][5] = black;
+  b[0][1] = color_t::white;
+  b[1][0] = color_t::white;
+  b[1][3] = color_t::white;
+  b[2][1] = color_t::white;
+  b[3][0] = color_t::white;
+  b[3][6] = color_t::black;
+  b[4][5] = color_t::black;
+  b[5][4] = color_t::black;
+  b[5][6] = color_t::black;
+  b[6][5] = color_t::black;
 
-  BOOST_CHECK(!b.can_put(Point(1, 0), black));
-  BOOST_CHECK(!b.can_put(Point(9, 0), black));
-  BOOST_CHECK( b.can_put(Point(3, 3), black));
-  BOOST_CHECK(!b.can_put(Point(0, 0), black));
-  BOOST_CHECK( b.can_put(Point(0, 0), white));
+  BOOST_CHECK(!b.can_put(Point(1, 0), color_t::black));
+  BOOST_CHECK(!b.can_put(Point(9, 0), color_t::black));
+  BOOST_CHECK( b.can_put(Point(3, 3), color_t::black));
+  BOOST_CHECK(!b.can_put(Point(0, 0), color_t::black));
+  BOOST_CHECK( b.can_put(Point(0, 0), color_t::white));
 }
 
 BOOST_AUTO_TEST_CASE(board_test_canput_2) {
   shared_ptr<Board<5> > b = make_test_board_2();
-  BOOST_CHECK( b->can_put(Point(4, 4), black));
-  BOOST_CHECK( b->can_put(Point(0, 0), white));
-  b->put(Point(0, 2), white);
-  BOOST_CHECK(!b->can_put(Point(0, 0), black));
+  BOOST_CHECK( b->can_put(Point(4, 4), color_t::black));
+  BOOST_CHECK( b->can_put(Point(0, 0), color_t::white));
+  b->put(Point(0, 2), color_t::white);
+  BOOST_CHECK(!b->can_put(Point(0, 0), color_t::black));
 }
 
 BOOST_AUTO_TEST_CASE(x19board_test) {
@@ -347,22 +347,22 @@ BOOST_AUTO_TEST_CASE(x19board_test) {
   for (int y = 0; y < 19; y++) {
     for (int x = 0; x < 19; x++) {
       if (x == 9 && y == 9) continue;
-      b[y][x] = black;
+      b[y][x] = color_t::black;
     }
   }
 
-  BOOST_CHECK(!b.can_put(Point(9, 9), black));
-  BOOST_CHECK( b.can_put(Point(9, 9), white));
-  BOOST_CHECK_EQUAL(b.put(Point(9, 9), white), 19 * 19 - 1);
+  BOOST_CHECK(!b.can_put(Point(9, 9), color_t::black));
+  BOOST_CHECK( b.can_put(Point(9, 9), color_t::white));
+  BOOST_CHECK_EQUAL(b.put(Point(9, 9), color_t::white), 19 * 19 - 1);
 
   for (int y = 0; y < 19; y++) {
     for (int x = 0; x < 19; x++) {
       if (x == 0 && y == 0) continue;
-      b[y][x] = white;
+      b[y][x] = color_t::white;
     }
   }
 
-  BOOST_CHECK(!b.can_put(Point(0, 0), white));
-  BOOST_CHECK( b.can_put(Point(0, 0), black));
-  BOOST_CHECK_EQUAL(b.put(Point(0, 0), black), 19 * 19 - 1);
+  BOOST_CHECK(!b.can_put(Point(0, 0), color_t::white));
+  BOOST_CHECK( b.can_put(Point(0, 0), color_t::black));
+  BOOST_CHECK_EQUAL(b.put(Point(0, 0), color_t::black), 19 * 19 - 1);
 }
