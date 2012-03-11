@@ -7,7 +7,7 @@
 #include <iostream>
 #include <cassert>
 
-enum color_t {
+enum class color_t {
   empty,
   black,
   white,
@@ -68,7 +68,7 @@ public:
   Board() {
     for (unsigned int y = 0; y < N; y++) {
       for (unsigned int x = 0; x < N; x++) {
-        brd_state[y][x] = empty;
+        brd_state[y][x] = color_t::empty;
       }
     }
   }
@@ -90,7 +90,7 @@ public:
         p.y < 0 ||
         p.x >= static_cast<int>(N) ||
         p.y >= static_cast<int>(N)) {
-      return out_of_board;
+      return color_t::out_of_board;
     }
     else {
       return brd_state[p.y][p.x];
@@ -101,7 +101,7 @@ public:
     Points ps(new std::set<Point>);
     const color_t c = (*this)[p];
 
-    if (c == out_of_board || c == empty) {
+    if (c == color_t::out_of_board || c == color_t::empty) {
       return ps;
     }
     else {
@@ -119,7 +119,7 @@ public:
       for(std::set<Point>::const_iterator j = aps->begin();
           j != aps->end();
           j++) {
-        if ((*this)[*j] == empty) return true;
+        if ((*this)[*j] == color_t::empty) return true;
       }
     }
     return false;
@@ -134,8 +134,8 @@ public:
          i++) {
       const color_t neighbor = (static_cast<const Board>(*this))[*i];
       if (neighbor != c &&
-          neighbor != empty &&
-          neighbor != out_of_board &&
+          neighbor != color_t::empty &&
+          neighbor != color_t::out_of_board &&
           !alive_at(*i)) {
         const Points opponents = get_chain(*i);
         for (std::set<Point>::const_iterator j = opponents->begin();
@@ -158,14 +158,14 @@ public:
     for (std::set<Point>::const_iterator i = captured->begin();
          i != captured->end();
          i++) {
-      (*this)[*i] = empty;
+      (*this)[*i] = color_t::empty;
     }
 
     return captured->size();
   }
 
   bool can_put(const Point& p, const color_t c) const {
-    if ((*this)[p] != empty) {
+    if ((*this)[p] != color_t::empty) {
       return false;
     }
     else if (ko_point && *ko_point == p) {
@@ -183,7 +183,9 @@ public:
              i != aps->end();
              i++) {
           const color_t neighbor = static_cast<const Board>(b)[*i];
-          if (neighbor != c && neighbor != out_of_board && !b.alive_at(*i)) {
+          if (neighbor != c &&
+              neighbor != color_t::out_of_board &&
+              !b.alive_at(*i)) {
             return true;
           }
         }
@@ -198,16 +200,16 @@ std::ostream& operator<<(std::ostream& os, const Board<N> b) {
   for (size_t y = 0; y < N; y++) {
     for (size_t x = 0; x < N; x++) {
       switch (b[Point(x, y)]) {
-      case empty:
+      case color_t::empty:
         os << '.';
         break;
-      case black:
+      case color_t::black:
         os << 'x';
         break;
-      case white:
+      case color_t::white:
         os << 'o';
         break;
-      case out_of_board:
+      case color_t::out_of_board:
         assert(false); // should never reach here
       }
     }
@@ -215,3 +217,5 @@ std::ostream& operator<<(std::ostream& os, const Board<N> b) {
   }
   return os;
 }
+
+std::ostream& operator<<(std::ostream& os, const color_t c);
