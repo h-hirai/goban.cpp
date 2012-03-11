@@ -1,7 +1,5 @@
 #include "goban.hpp"
 
-using namespace std;
-
 //
 // class Point
 
@@ -13,7 +11,7 @@ Point Point::left() const  {return Point(x - 1, y);}
 Point Point::right() const {return Point(x + 1, y);}
 
 Points Point::around() const {
-  Points ps(new set<Point>);
+  Points ps(new std::set<Point>);
   ps->insert(up());
   ps->insert(down());
   ps->insert(left());
@@ -29,6 +27,10 @@ bool Point::operator<(const Point& p) const {
 bool Point::operator==(const Point& p) const {
   return x == p.x && y == p.y;
 }
+
+
+//
+// enum class color_t
 
 std::ostream& operator<<(std::ostream& os, const color_t c) {
   switch (c) {
