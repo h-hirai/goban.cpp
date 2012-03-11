@@ -40,27 +40,67 @@ private:
   std::array<std::array<color_t, N>, N> brd_state;
   Point_ptr ko_point;
 
-  class get_chain_aux {
+  class Chain {
   private:
     const Board<N>& board;
-    const color_t chain_color;
-  public:
-    get_chain_aux(const Board<N>& board, const color_t chain_color) :
-      board(board),
-      chain_color(chain_color) {}
 
-    Points operator()(Points ps, const Point& p) const {
-      if (board[p] != chain_color) {
-        return ps;
+    class get_chain_aux {
+    private:
+      const Board<N>& board;
+      const color_t chain_color;
+    public:
+      get_chain_aux(const Board<N>& _board, const color_t _chain_color)
+        : board(_board)
+        , chain_color(_chain_color)
+      {}
+
+      Points operator()(Points ps, const Point& p) const {
+        if (board[p] != chain_color) {
+          return ps;
+        }
+        else if (ps->find(p) != ps->end()) {
+          return ps;
+        }
+        else {
+          const std::set<Point> aps = p.around();
+          ps->insert(p);
+          return accumulate(aps.begin(), aps.end(), ps, *this);
+        }
       }
-      else if (ps->find(p) != ps->end()) {
+    };
+
+    Points get_chain(const Board<N>& board, const Point& p) const {
+      Points ps(new std::set<Point>);
+      const color_t c = board[p];
+
+      if (c == color_t::out_of_board || c == color_t::empty) {
         return ps;
       }
       else {
-        const std::set<Point> aps = p.around();
-        ps->insert(p);
-        return accumulate(aps.begin(), aps.end(), ps, *this);
+        get_chain_aux get_points_of_chain(board, c);
+        return get_points_of_chain(ps, p);
       }
+    }
+
+  public:
+    const Points points;
+
+    Chain(const Board<N>& _board, const Point& p)
+      : board(_board)
+      , points(get_chain(_board, p))
+    {}
+
+    size_t size() const {
+      return points->size();
+    }
+
+    bool is_alive() const {
+      for (auto i : *points) {
+        for(auto j : i.around()) {
+          if (board[j] == color_t::empty) return true;
+        }
+      }
+      return false;
     }
   };
 
@@ -97,62 +137,34 @@ public:
     }
   }
 
-  Points get_chain(const Point& p) const {
-    Points ps(new std::set<Point>);
-    const color_t c = (*this)[p];
-
-    if (c == color_t::out_of_board || c == color_t::empty) {
-      return ps;
-    }
-    else {
-      get_chain_aux get_points_of_chain(*this, c);
-      return get_points_of_chain(ps, p);
-    }
-  }
-
-  bool alive_at(const Point& p) const {
-    const Points ps = get_chain(p);
-    for (std::set<Point>::const_iterator i = ps->begin();
-         i != ps->end();
-         i++) {
-      for(auto j : i->around()) {
-        if ((*this)[j] == color_t::empty) return true;
-      }
-    }
-    return false;
-  }
-
   int put(const Point& p, const color_t c) {
     (*this)[p] = c;
     Points captured(new std::set<Point>);
     for (auto i : p.around()) {
       const color_t neighbor = (static_cast<const Board>(*this))[i];
+      const Chain opponents(*this, i);
       if (neighbor != c &&
           neighbor != color_t::empty &&
           neighbor != color_t::out_of_board &&
-          !alive_at(i)) {
-        const Points opponents = get_chain(i);
-        for (std::set<Point>::const_iterator j = opponents->begin();
-             j != opponents->end();
-             j++) {
-          captured->insert(*j);
+          !opponents.is_alive()) {
+        for (auto j : *(opponents.points)) {
+          captured->insert(j);
         }
       }
     }
 
+    const Chain put_chain(*this, p);
     if (captured->size() == 1 &&
-        get_chain(p)->size() == 1 &&
-        !alive_at(p)) {
+        put_chain.size() == 1 &&
+        !put_chain.is_alive()) {
       ko_point = Point_ptr(new Point(*(captured->begin())));
     }
     else {
       ko_point = Point_ptr();
     }
 
-    for (std::set<Point>::const_iterator i = captured->begin();
-         i != captured->end();
-         i++) {
-      (*this)[*i] = color_t::empty;
+    for (auto i : *captured) {
+      (*this)[i] = color_t::empty;
     }
 
     return captured->size();
@@ -168,15 +180,17 @@ public:
     else {
       Board b = (*this);
       b[p] = c;
-      if (b.alive_at(p)) {
+      const Chain point_chain(b, p);
+      if (point_chain.is_alive()) {
         return true;
       }
       else {
         for (auto i : p.around()) {
           const color_t neighbor = static_cast<const Board>(b)[i];
+          const Chain neighbor_chain(b, i);
           if (neighbor != c &&
               neighbor != color_t::out_of_board &&
-              !b.alive_at(i)) {
+              !neighbor_chain.is_alive()) {
             return true;
           }
         }

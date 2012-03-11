@@ -72,6 +72,7 @@ BOOST_AUTO_TEST_CASE(board_test) {
   BOOST_CHECK_EQUAL(b[Point(1, 2)], color_t::white);
 }
 
+/*
 BOOST_AUTO_TEST_CASE(board_test_get_chain) {
   Board<5> b;
 
@@ -125,7 +126,9 @@ BOOST_AUTO_TEST_CASE(board_test_get_chain) {
   ps = b.get_chain(Point(5, 3));
   BOOST_CHECK(ps->size() == 0);
 }
+*/
 
+/*
 BOOST_AUTO_TEST_CASE(board_test_alive_at) {
   BOOST_TEST_CHECKPOINT("preparing test data...");
 
@@ -183,6 +186,7 @@ BOOST_AUTO_TEST_CASE(board_test_alive_at) {
   BOOST_CHECK(!b3.alive_at(Point(0, 4)));
   BOOST_CHECK(!b3.alive_at(Point(5, 5)));
 }
+*/
 
 BOOST_AUTO_TEST_CASE(board_test_put_1) {
   Board<5> b;
