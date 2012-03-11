@@ -35,12 +35,12 @@ BOOST_AUTO_TEST_CASE(point_test) {
 
   BOOST_TEST_CHECKPOINT("around");
 
-  Points ps = p.around();
-  BOOST_CHECK(ps->size() == 4);
-  BOOST_CHECK(ps->find(pu) != ps->end());
-  BOOST_CHECK(ps->find(pd) != ps->end());
-  BOOST_CHECK(ps->find(pl) != ps->end());
-  BOOST_CHECK(ps->find(pr) != ps->end());
+  std::set<Point> ps = p.around();
+  BOOST_CHECK(ps.size() == 4);
+  BOOST_CHECK(ps.find(pu) != ps.end());
+  BOOST_CHECK(ps.find(pd) != ps.end());
+  BOOST_CHECK(ps.find(pl) != ps.end());
+  BOOST_CHECK(ps.find(pr) != ps.end());
 
   BOOST_TEST_CHECKPOINT("operator<");
 

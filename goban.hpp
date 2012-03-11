@@ -28,7 +28,7 @@ public:
   Point left() const;
   Point right() const;
 
-  Points around() const;
+  std::set<Point> around() const;
 
   bool operator<(const Point&) const;
   bool operator==(const Point&) const;
@@ -57,9 +57,9 @@ private:
         return ps;
       }
       else {
-        const Points aps = p.around();
+        const std::set<Point> aps = p.around();
         ps->insert(p);
-        return accumulate(aps->begin(), aps->end(), ps, *this);
+        return accumulate(aps.begin(), aps.end(), ps, *this);
       }
     }
   };
@@ -115,11 +115,8 @@ public:
     for (std::set<Point>::const_iterator i = ps->begin();
          i != ps->end();
          i++) {
-      const Points aps = i->around();
-      for(std::set<Point>::const_iterator j = aps->begin();
-          j != aps->end();
-          j++) {
-        if ((*this)[*j] == color_t::empty) return true;
+      for(auto j : i->around()) {
+        if ((*this)[j] == color_t::empty) return true;
       }
     }
     return false;
@@ -127,17 +124,14 @@ public:
 
   int put(const Point& p, const color_t c) {
     (*this)[p] = c;
-    const Points aps = p.around();
     Points captured(new std::set<Point>);
-    for (std::set<Point>::const_iterator i = aps->begin();
-         i != aps->end();
-         i++) {
-      const color_t neighbor = (static_cast<const Board>(*this))[*i];
+    for (auto i : p.around()) {
+      const color_t neighbor = (static_cast<const Board>(*this))[i];
       if (neighbor != c &&
           neighbor != color_t::empty &&
           neighbor != color_t::out_of_board &&
-          !alive_at(*i)) {
-        const Points opponents = get_chain(*i);
+          !alive_at(i)) {
+        const Points opponents = get_chain(i);
         for (std::set<Point>::const_iterator j = opponents->begin();
              j != opponents->end();
              j++) {
@@ -178,14 +172,11 @@ public:
         return true;
       }
       else {
-        const Points aps = p.around();
-        for (std::set<Point>::const_iterator i = aps->begin();
-             i != aps->end();
-             i++) {
-          const color_t neighbor = static_cast<const Board>(b)[*i];
+        for (auto i : p.around()) {
+          const color_t neighbor = static_cast<const Board>(b)[i];
           if (neighbor != c &&
               neighbor != color_t::out_of_board &&
-              !b.alive_at(*i)) {
+              !b.alive_at(i)) {
             return true;
           }
         }
