@@ -5,19 +5,13 @@
 
 Point::Point(const int x, const int y) : x(x), y(y) {}
 
-Point Point::up() const    {return Point(x,     y - 1);}
-Point Point::down() const  {return Point(x,     y + 1);}
-Point Point::left() const  {return Point(x - 1, y);}
-Point Point::right() const {return Point(x + 1, y);}
+inline Point Point::up() const    {return Point(x,     y - 1);}
+inline Point Point::down() const  {return Point(x,     y + 1);}
+inline Point Point::left() const  {return Point(x - 1, y);}
+inline Point Point::right() const {return Point(x + 1, y);}
 
-Points Point::around() const {
-  Points ps(new std::set<Point>);
-  ps->insert(up());
-  ps->insert(down());
-  ps->insert(left());
-  ps->insert(right());
-
-  return ps;
+std::set<Point> Point::around() const {
+  return {up(), down(), left(), right()};
 }
 
 bool Point::operator<(const Point& p) const {
