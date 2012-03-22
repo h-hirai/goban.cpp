@@ -112,10 +112,8 @@ public:
 
   bool alive_at(const Point& p) const {
     const Points ps = get_chain(p);
-    for (std::set<Point>::const_iterator i = ps->begin();
-         i != ps->end();
-         i++) {
-      for(auto j : i->around()) {
+    for (auto& i : *ps) {
+      for(auto& j : i.around()) {
         if ((*this)[j] == color_t::empty) return true;
       }
     }
@@ -125,17 +123,15 @@ public:
   int put(const Point& p, const color_t c) {
     (*this)[p] = c;
     Points captured(new std::set<Point>);
-    for (auto i : p.around()) {
+    for (auto& i : p.around()) {
       const color_t neighbor = (static_cast<const Board>(*this))[i];
       if (neighbor != c &&
           neighbor != color_t::empty &&
           neighbor != color_t::out_of_board &&
           !alive_at(i)) {
         const Points opponents = get_chain(i);
-        for (std::set<Point>::const_iterator j = opponents->begin();
-             j != opponents->end();
-             j++) {
-          captured->insert(*j);
+        for (auto& j : *opponents) {
+          captured->insert(j);
         }
       }
     }
@@ -149,10 +145,8 @@ public:
       ko_point = Point_ptr();
     }
 
-    for (std::set<Point>::const_iterator i = captured->begin();
-         i != captured->end();
-         i++) {
-      (*this)[*i] = color_t::empty;
+    for (auto& i : *captured) {
+      (*this)[i] = color_t::empty;
     }
 
     return captured->size();
@@ -172,7 +166,7 @@ public:
         return true;
       }
       else {
-        for (auto i : p.around()) {
+        for (auto& i : p.around()) {
           const color_t neighbor = static_cast<const Board>(b)[i];
           if (neighbor != c &&
               neighbor != color_t::out_of_board &&
